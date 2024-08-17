@@ -42,8 +42,8 @@ public class SmsClientTests {
     @Disabled
     public void testAliyunSmsClient_getSmsTemplate() throws Throwable {
         SmsChannelProperties properties = new SmsChannelProperties()
-                .setApiKey("LTAI5tAicJAxaSFiZuGGeXHR")
-                .setApiSecret("Fdr9vadxnDvS6GJU0W1tijQ0VmLhYz");
+                .setApiKey("")
+                .setApiSecret("");
         AliyunSmsClient client = new AliyunSmsClient(properties);
         // 准备参数
         String apiTemplateId = "SMS_207945135";
@@ -57,8 +57,8 @@ public class SmsClientTests {
     @Disabled
     public void testAliyunSmsClient_sendSms() throws Throwable {
         SmsChannelProperties properties = new SmsChannelProperties()
-                .setApiKey("LTAI5tAicJAxaSFiZuGGeXHR")
-                .setApiSecret("Fdr9vadxnDvS6GJU0W1tijQ0VmLhYz")
+                .setApiKey("")
+                .setApiSecret("")
                 .setSignature("Ballcat");
         AliyunSmsClient client = new AliyunSmsClient(properties);
         // 准备参数
@@ -75,8 +75,8 @@ public class SmsClientTests {
     @Disabled
     public void testAliyunSmsClient_parseSmsReceiveStatus() {
         SmsChannelProperties properties = new SmsChannelProperties()
-                .setApiKey("LTAI5tAicJAxaSFiZuGGeXHR")
-                .setApiSecret("Fdr9vadxnDvS6GJU0W1tijQ0VmLhYz");
+                .setApiKey("")
+                .setApiSecret("");
         AliyunSmsClient client = new AliyunSmsClient(properties);
         // 准备参数
         String text = "[\n" +
