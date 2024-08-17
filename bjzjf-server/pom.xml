@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>site.hansi</groupId>
+        <artifactId>bjzjf</artifactId>
+        <version>${zjf.version}</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>bjzjf-server</artifactId>
+    <packaging>jar</packaging>
+    <name>${project.artifactId}</name>
+
+    <url>https://github.com/wenly84/bjzjf-boot</url>
+
+    <dependencies>
+        <dependency>
+            <groupId>site.hansi</groupId>
+            <artifactId>bjzjf-module-system-biz</artifactId>
+            <version>${zjf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>site.hansi</groupId>
+            <artifactId>bjzjf-module-infra-biz</artifactId>
+            <version>${zjf.version}</version>
+        </dependency>
+        
+        <!-- 会员中心 -->
+        <dependency>
+            <groupId>site.hansi</groupId>
+            <artifactId>bjzjf-module-member-biz</artifactId>
+            <version>${zjf.version}</version>
+        </dependency>
+
+        <!-- 数据报表 -->
+        <dependency>
+            <groupId>site.hansi</groupId>
+            <artifactId>bjzjf-module-report-biz</artifactId>
+            <version>${zjf.version}</version>
+        </dependency>
+        <!-- 工作流 -->
+        <dependency>
+            <groupId>site.hansi</groupId>
+            <artifactId>bjzjf-module-bpm-biz</artifactId>
+            <version>${zjf.version}</version>
+        </dependency>
+        <!-- 支付服务 -->
+        <dependency>
+            <groupId>site.hansi</groupId>
+            <artifactId>bjzjf-module-pay-biz</artifactId>
+            <version>${zjf.version}</version>
+        </dependency>
+
+        <!-- 微信公众号模块 -->
+        <dependency>
+            <groupId>site.hansi</groupId>
+            <artifactId>bjzjf-module-mp-biz</artifactId>
+            <version>${zjf.version}</version>
+        </dependency>
+
+        <!-- 商城相关模块-->
+        <dependency>
+            <groupId>site.hansi</groupId>
+            <artifactId>bjzjf-module-promotion-biz</artifactId>
+            <version>${zjf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>site.hansi</groupId>
+            <artifactId>bjzjf-module-product-biz</artifactId>
+            <version>${zjf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>site.hansi</groupId>
+            <artifactId>bjzjf-module-trade-biz</artifactId>
+            <version>${zjf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>site.hansi</groupId>
+            <artifactId>bjzjf-module-statistics-biz</artifactId>
+            <version>${zjf.version}</version>
+        </dependency>
+
+        <!-- CRM 模块 -->
+        <dependency>
+            <groupId>site.hansi</groupId>
+            <artifactId>bjzjf-module-crm-biz</artifactId>
+            <version>${zjf.version}</version>
+        </dependency>
+
+        <!-- ERP 模块 -->
+        <dependency>
+            <groupId>site.hansi</groupId>
+            <artifactId>bjzjf-module-erp-biz</artifactId>
+            <version>${zjf.version}</version>
+        </dependency>
+
+        <!-- AI 大模型模块
+        <dependency>
+            <groupId>site.hansi</groupId>
+            <artifactId>bjzjf-module-ai-biz</artifactId>
+            <version>${zjf.version}</version>
+        </dependency>
+		 -->
+        <!-- spring boot 配置所需依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- 服务保障相关 -->
+        <dependency>
+            <groupId>site.hansi</groupId>
+            <artifactId>bjzjf-spring-boot-starter-protection</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <!-- 设置构建的 jar 包名 -->
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <!-- 打包 -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring.boot.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal> <!-- 将引入的 jar 打入其中 -->
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

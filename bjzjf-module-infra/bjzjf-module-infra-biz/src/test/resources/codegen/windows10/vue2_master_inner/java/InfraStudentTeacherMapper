@@ -1,0 +1,28 @@
+package site.hansi.module.infra.dal.mysql.demo;
+
+import java.util.*;
+
+import site.hansi.framework.common.pojo.PageResult;
+import site.hansi.framework.common.pojo.PageParam;
+import site.hansi.framework.mybatis.core.query.LambdaQueryWrapperX;
+import site.hansi.framework.mybatis.core.mapper.BaseMapperX;
+import site.hansi.module.infra.dal.dataobject.demo.InfraStudentTeacherDO;
+import org.apache.ibatis.annotations.Mapper;
+
+/**
+ * 学生班主任 Mapper
+ *
+ * @author 北京智匠坊
+ */
+@Mapper
+public interface InfraStudentTeacherMapper extends BaseMapperX<InfraStudentTeacherDO> {
+
+    default InfraStudentTeacherDO selectByStudentId(Long studentId) {
+        return selectOne(InfraStudentTeacherDO::getStudentId, studentId);
+    }
+
+    default int deleteByStudentId(Long studentId) {
+        return delete(InfraStudentTeacherDO::getStudentId, studentId);
+    }
+
+}

@@ -1,0 +1,4 @@
+site.hansi.framework.idempotent.config.BjzjfIdempotentConfiguration
+site.hansi.framework.lock4j.config.BjzjfLock4jConfiguration
+site.hansi.framework.ratelimiter.config.BjzjfRateLimiterConfiguration
+site.hansi.framework.signature.config.BjzjfApiSignatureAutoConfiguration

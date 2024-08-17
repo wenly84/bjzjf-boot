@@ -1,0 +1,6 @@
+site.hansi.framework.apilog.config.BjzjfApiLogAutoConfiguration
+site.hansi.framework.jackson.config.BjzjfJacksonAutoConfiguration
+site.hansi.framework.swagger.config.BjzjfSwaggerAutoConfiguration
+site.hansi.framework.web.config.BjzjfWebAutoConfiguration
+site.hansi.framework.xss.config.BjzjfXssAutoConfiguration
+site.hansi.framework.banner.config.BjzjfBannerAutoConfiguration

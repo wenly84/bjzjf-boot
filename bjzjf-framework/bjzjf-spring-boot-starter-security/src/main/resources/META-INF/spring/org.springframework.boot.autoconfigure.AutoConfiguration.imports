@@ -1,0 +1,3 @@
+site.hansi.framework.security.config.BjzjfSecurityAutoConfiguration
+site.hansi.framework.security.config.BjzjfWebSecurityConfigurerAdapter
+site.hansi.framework.operatelog.config.BjzjfOperateLogConfiguration

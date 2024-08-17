@@ -1,0 +1,3 @@
+site.hansi.framework.mq.redis.config.BjzjfRedisMQProducerAutoConfiguration
+site.hansi.framework.mq.redis.config.BjzjfRedisMQConsumerAutoConfiguration
+site.hansi.framework.mq.rabbitmq.config.BjzjfRabbitMQAutoConfiguration

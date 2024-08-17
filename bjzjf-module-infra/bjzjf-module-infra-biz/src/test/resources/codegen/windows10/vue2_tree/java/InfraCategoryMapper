@@ -1,0 +1,34 @@
+package site.hansi.module.infra.dal.mysql.demo;
+
+import java.util.*;
+
+import site.hansi.framework.common.pojo.PageResult;
+import site.hansi.framework.mybatis.core.query.LambdaQueryWrapperX;
+import site.hansi.framework.mybatis.core.mapper.BaseMapperX;
+import site.hansi.module.infra.dal.dataobject.demo.InfraCategoryDO;
+import org.apache.ibatis.annotations.Mapper;
+import site.hansi.module.infra.controller.admin.demo.vo.*;
+
+/**
+ * 分类 Mapper
+ *
+ * @author 北京智匠坊
+ */
+@Mapper
+public interface InfraCategoryMapper extends BaseMapperX<InfraCategoryDO> {
+
+    default List<InfraCategoryDO> selectList(InfraCategoryListReqVO reqVO) {
+        return selectList(new LambdaQueryWrapperX<InfraCategoryDO>()
+                .likeIfPresent(InfraCategoryDO::getName, reqVO.getName())
+                .orderByDesc(InfraCategoryDO::getId));
+    }
+
+	default InfraCategoryDO selectByParentIdAndName(Long parentId, String name) {
+	    return selectOne(InfraCategoryDO::getParentId, parentId, InfraCategoryDO::getName, name);
+	}
+
+    default Long selectCountByParentId(Long parentId) {
+        return selectCount(InfraCategoryDO::getParentId, parentId);
+    }
+
+}

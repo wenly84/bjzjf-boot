@@ -1,0 +1,3 @@
+site.hansi.framework.datasource.config.BjzjfDataSourceAutoConfiguration
+site.hansi.framework.mybatis.config.BjzjfMybatisAutoConfiguration
+site.hansi.framework.translate.config.BjzjfTranslateAutoConfiguration
