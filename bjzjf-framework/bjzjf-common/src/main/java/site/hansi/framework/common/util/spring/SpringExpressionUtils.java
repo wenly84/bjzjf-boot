@@ -24,7 +24,7 @@ import java.util.Map;
 /**
  * Spring EL 表达式的工具类
  *
- * @author mashu
+ * @author 北京智匠坊
  */
 public class SpringExpressionUtils {
 

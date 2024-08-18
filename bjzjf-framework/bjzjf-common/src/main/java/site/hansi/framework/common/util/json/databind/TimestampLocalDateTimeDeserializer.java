@@ -12,7 +12,7 @@ import java.time.ZoneId;
 /**
  * 基于时间戳的 LocalDateTime 反序列化器
  *
- * @author 老五
+ * @author 北京智匠坊
  */
 public class TimestampLocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
 

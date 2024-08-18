@@ -19,7 +19,7 @@ import java.util.List;
  *
  * 基于 {@link OperateLogApi} 实现，记录操作日志
  *
- * @author HUIHUI
+ * @author 北京智匠坊
  */
 @Slf4j
 public class LogRecordServiceImpl implements ILogRecordService {

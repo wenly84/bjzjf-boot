@@ -10,7 +10,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 /**
  * HTTP API 签名的自动配置类
  *
- * @author Zhougang
+ * @author 北京智匠坊
  */
 @AutoConfiguration(after = BjzjfRedisAutoConfiguration.class)
 public class BjzjfApiSignatureAutoConfiguration {

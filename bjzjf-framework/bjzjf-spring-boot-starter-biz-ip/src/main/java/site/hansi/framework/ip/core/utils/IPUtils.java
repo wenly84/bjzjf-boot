@@ -13,7 +13,7 @@ import java.io.IOException;
  *
  * IP 数据源来自 ip2region.xdb 精简版，基于 <a href="https://gitee.com/zhijiantianya/ip2region"/> 项目
  *
- * @author wanglhup
+ * @author 北京智匠坊
  */
 @Slf4j
 public class IPUtils {
