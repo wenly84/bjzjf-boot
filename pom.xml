@@ -94,7 +94,6 @@
         </pluginManagement>
 
         <plugins>
-            <!-- 统一 zjf.version 版本 -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
