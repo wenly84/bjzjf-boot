@@ -5,7 +5,7 @@ import site.hansi.framework.desensitize.core.slider.annotation.CarLicenseDesensi
 /**
  * {@link CarLicenseDesensitize} 的脱敏处理器
  *
- * @author gaibu
+ * @author 北京智匠坊
  */
 public class CarLicenseDesensitization extends AbstractSliderDesensitizationHandler<CarLicenseDesensitize> {
 

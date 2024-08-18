@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 /**
  * WebSocket 配置项
  *
- * @author xingyu4j
+ * @author 北京智匠坊
  */
 @ConfigurationProperties("bjzjf.websocket")
 @Data

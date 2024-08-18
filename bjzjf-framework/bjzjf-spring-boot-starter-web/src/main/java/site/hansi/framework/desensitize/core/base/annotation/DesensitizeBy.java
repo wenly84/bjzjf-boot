@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
 /**
  * 顶级脱敏注解，自定义注解需要使用此注解
  *
- * @author gaibu
+ * @author 北京智匠坊
  */
 @Documented
 @Target(ElementType.ANNOTATION_TYPE)

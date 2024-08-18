@@ -5,7 +5,7 @@ import site.hansi.framework.desensitize.core.regex.annotation.EmailDesensitize;
 /**
  * {@link EmailDesensitize} 的脱敏处理器
  *
- * @author gaibu
+ * @author 北京智匠坊
  */
 public class EmailDesensitizationHandler extends AbstractRegexDesensitizationHandler<EmailDesensitize> {
 

@@ -5,7 +5,7 @@ import site.hansi.framework.desensitize.core.slider.annotation.PasswordDesensiti
 /**
  * {@link PasswordDesensitize} 的码脱敏处理器
  *
- * @author gaibu
+ * @author 北京智匠坊
  */
 public class PasswordDesensitization extends AbstractSliderDesensitizationHandler<PasswordDesensitize> {
     @Override
