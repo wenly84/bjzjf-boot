@@ -6,7 +6,7 @@
     <parent>
         <artifactId>bjzjf</artifactId>
         <groupId>site.hansi</groupId>
-        <version>${zjf.version}</version>
+        <version>${revision}</version>
     </parent>
     <packaging>pom</packaging>
     <modules>

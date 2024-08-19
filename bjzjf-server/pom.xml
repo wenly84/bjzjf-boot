@@ -5,7 +5,7 @@
     <parent>
         <groupId>site.hansi</groupId>
         <artifactId>bjzjf</artifactId>
-        <version>${zjf.version}</version>
+        <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -19,88 +19,88 @@
         <dependency>
             <groupId>site.hansi</groupId>
             <artifactId>bjzjf-module-system-biz</artifactId>
-            <version>${zjf.version}</version>
+            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>site.hansi</groupId>
             <artifactId>bjzjf-module-infra-biz</artifactId>
-            <version>${zjf.version}</version>
+            <version>${revision}</version>
         </dependency>
         
         <!-- 会员中心 -->
         <dependency>
             <groupId>site.hansi</groupId>
             <artifactId>bjzjf-module-member-biz</artifactId>
-            <version>${zjf.version}</version>
+            <version>${revision}</version>
         </dependency>
 
         <!-- 数据报表 -->
         <dependency>
             <groupId>site.hansi</groupId>
             <artifactId>bjzjf-module-report-biz</artifactId>
-            <version>${zjf.version}</version>
+            <version>${revision}</version>
         </dependency>
         <!-- 工作流 -->
         <dependency>
             <groupId>site.hansi</groupId>
             <artifactId>bjzjf-module-bpm-biz</artifactId>
-            <version>${zjf.version}</version>
+            <version>${revision}</version>
         </dependency>
         <!-- 支付服务 -->
         <dependency>
             <groupId>site.hansi</groupId>
             <artifactId>bjzjf-module-pay-biz</artifactId>
-            <version>${zjf.version}</version>
+            <version>${revision}</version>
         </dependency>
 
         <!-- 微信公众号模块 -->
         <dependency>
             <groupId>site.hansi</groupId>
             <artifactId>bjzjf-module-mp-biz</artifactId>
-            <version>${zjf.version}</version>
+            <version>${revision}</version>
         </dependency>
 
         <!-- 商城相关模块-->
         <dependency>
             <groupId>site.hansi</groupId>
             <artifactId>bjzjf-module-promotion-biz</artifactId>
-            <version>${zjf.version}</version>
+            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>site.hansi</groupId>
             <artifactId>bjzjf-module-product-biz</artifactId>
-            <version>${zjf.version}</version>
+            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>site.hansi</groupId>
             <artifactId>bjzjf-module-trade-biz</artifactId>
-            <version>${zjf.version}</version>
+            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>site.hansi</groupId>
             <artifactId>bjzjf-module-statistics-biz</artifactId>
-            <version>${zjf.version}</version>
+            <version>${revision}</version>
         </dependency>
 
         <!-- CRM 模块 -->
         <dependency>
             <groupId>site.hansi</groupId>
             <artifactId>bjzjf-module-crm-biz</artifactId>
-            <version>${zjf.version}</version>
+            <version>${revision}</version>
         </dependency>
 
         <!-- ERP 模块 -->
         <dependency>
             <groupId>site.hansi</groupId>
             <artifactId>bjzjf-module-erp-biz</artifactId>
-            <version>${zjf.version}</version>
+            <version>${revision}</version>
         </dependency>
 
         <!-- AI 大模型模块
         <dependency>
             <groupId>site.hansi</groupId>
             <artifactId>bjzjf-module-ai-biz</artifactId>
-            <version>${zjf.version}</version>
+            <version>${revision}</version>
         </dependency>
 		 -->
         <!-- spring boot 配置所需依赖 -->

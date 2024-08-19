@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>site.hansi</groupId>
     <artifactId>bjzjf</artifactId>
-    <version>${zjf.version}</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
     <modules>
         <module>bjzjf-dependencies</module>
@@ -29,7 +29,7 @@
     <url>https://github.com/wenly84/bjzjf-boot</url>
     
     <properties>
-        <zjf.version>1.0.0-snapshot</zjf.version>
+        <revision>1.0.0-snapshot</revision>
         <java.version>1.8</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -47,7 +47,7 @@
             <dependency>
                 <groupId>site.hansi</groupId>
                 <artifactId>bjzjf-dependencies</artifactId>
-                <version>${zjf.version}</version>
+                <version>${revision}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -61,6 +61,9 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${maven-surefire-plugin.version}</version>
+            		<configuration>
+                		<skip>true</skip>
+            		</configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>

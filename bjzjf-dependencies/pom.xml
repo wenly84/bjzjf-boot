@@ -6,7 +6,7 @@
 
     <groupId>site.hansi</groupId>
     <artifactId>bjzjf-dependencies</artifactId>
-    <version>${zjf.version}</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
 
     <name>${project.artifactId}</name>
@@ -14,7 +14,7 @@
     <url>https://github.com/wenly84/bjzjf-boot</url>
 
     <properties>
-        <zjf.version>1.0.0-snapshot</zjf.version>
+        <revision>1.0.0-snapshot</revision>
         <flatten-maven-plugin.version>1.6.0</flatten-maven-plugin.version>
         <!-- 统一依赖管理 -->
         <spring.boot.version>2.7.18</spring.boot.version>
@@ -101,17 +101,17 @@
             <dependency>
                 <groupId>site.hansi</groupId>
                 <artifactId>bjzjf-spring-boot-starter-biz-tenant</artifactId>
-                <version>${zjf.version}</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>site.hansi</groupId>
                 <artifactId>bjzjf-spring-boot-starter-biz-data-permission</artifactId>
-                <version>${zjf.version}</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>site.hansi</groupId>
                 <artifactId>bjzjf-spring-boot-starter-biz-ip</artifactId>
-                <version>${zjf.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <!-- Spring 核心 -->
@@ -126,19 +126,19 @@
             <dependency>
                 <groupId>site.hansi</groupId>
                 <artifactId>bjzjf-spring-boot-starter-web</artifactId>
-                <version>${zjf.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <dependency>
                 <groupId>site.hansi</groupId>
                 <artifactId>bjzjf-spring-boot-starter-security</artifactId>
-                <version>${zjf.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <dependency>
                 <groupId>site.hansi</groupId>
                 <artifactId>bjzjf-spring-boot-starter-websocket</artifactId>
-                <version>${zjf.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <dependency>
@@ -156,7 +156,7 @@
             <dependency>
                 <groupId>site.hansi</groupId>
                 <artifactId>bjzjf-spring-boot-starter-mybatis</artifactId>
-                <version>${zjf.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <dependency>
@@ -219,7 +219,7 @@
             <dependency>
                 <groupId>site.hansi</groupId>
                 <artifactId>bjzjf-spring-boot-starter-redis</artifactId>
-                <version>${zjf.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <dependency>
@@ -266,14 +266,14 @@
             <dependency>
                 <groupId>site.hansi</groupId>
                 <artifactId>bjzjf-spring-boot-starter-job</artifactId>
-                <version>${zjf.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <!-- 消息队列相关 -->
             <dependency>
                 <groupId>site.hansi</groupId>
                 <artifactId>bjzjf-spring-boot-starter-mq</artifactId>
-                <version>${zjf.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <dependency>
@@ -286,7 +286,7 @@
             <dependency>
                 <groupId>site.hansi</groupId>
                 <artifactId>bjzjf-spring-boot-starter-protection</artifactId>
-                <version>${zjf.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <dependency>
@@ -305,7 +305,7 @@
             <dependency>
                 <groupId>site.hansi</groupId>
                 <artifactId>bjzjf-spring-boot-starter-monitor</artifactId>
-                <version>${zjf.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <dependency>
@@ -370,7 +370,7 @@
             <dependency>
                 <groupId>site.hansi</groupId>
                 <artifactId>bjzjf-spring-boot-starter-test</artifactId>
-                <version>${zjf.version}</version>
+                <version>${revision}</version>
                 <scope>test</scope>
             </dependency>
 
@@ -425,13 +425,13 @@
             <dependency>
                 <groupId>site.hansi</groupId>
                 <artifactId>bjzjf-common</artifactId>
-                <version>${zjf.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <dependency>
                 <groupId>site.hansi</groupId>
                 <artifactId>bjzjf-spring-boot-starter-excel</artifactId>
-                <version>${zjf.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <dependency>

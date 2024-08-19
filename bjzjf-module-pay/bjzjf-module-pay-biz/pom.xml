@@ -5,7 +5,7 @@
     <parent>
         <groupId>site.hansi</groupId>
         <artifactId>bjzjf-module-pay</artifactId>
-        <version>${zjf.version}</version>
+        <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>bjzjf-module-pay-biz</artifactId>
@@ -21,14 +21,14 @@
         <dependency>
             <groupId>site.hansi</groupId>
             <artifactId>bjzjf-module-pay-api</artifactId>
-            <version>${zjf.version}</version>
+            <version>${revision}</version>
         </dependency>
 
         <!-- 业务组件 -->
         <dependency>
             <groupId>site.hansi</groupId>
             <artifactId>bjzjf-spring-boot-starter-biz-pay</artifactId>
-            <version>${zjf.version}</version>
+            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>site.hansi</groupId>

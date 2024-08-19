@@ -5,7 +5,7 @@
     <parent>
         <groupId>site.hansi</groupId>
         <artifactId>bjzjf-framework</artifactId>
-        <version>${zjf.version}</version>
+        <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>bjzjf-spring-boot-starter-excel</artifactId>
@@ -31,7 +31,7 @@
         <dependency>
             <groupId>site.hansi</groupId>
             <artifactId>bjzjf-module-system-api</artifactId> <!-- 需要使用它，进行 Dict 的查询 -->
-            <version>${zjf.version}</version>
+            <version>${revision}</version>
         </dependency>
 
         <!-- Web 相关 -->

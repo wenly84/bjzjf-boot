@@ -5,7 +5,7 @@
     <parent>
         <groupId>site.hansi</groupId>
         <artifactId>bjzjf-module-erp</artifactId>
-        <version>${zjf.version}</version>
+        <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>bjzjf-module-erp-biz</artifactId>
@@ -20,12 +20,12 @@
         <dependency>
             <groupId>site.hansi</groupId>
             <artifactId>bjzjf-module-system-api</artifactId>
-            <version>${zjf.version}</version>
+            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>site.hansi</groupId>
             <artifactId>bjzjf-module-erp-api</artifactId>
-            <version>${zjf.version}</version>
+            <version>${revision}</version>
         </dependency>
 
         <!-- 业务组件 -->

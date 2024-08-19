@@ -5,7 +5,7 @@
     <parent>
         <groupId>site.hansi</groupId>
         <artifactId>bjzjf-module-mall</artifactId>
-        <version>${zjf.version}</version>
+        <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>bjzjf-module-statistics-biz</artifactId>
@@ -21,32 +21,32 @@
         <dependency>
             <groupId>site.hansi</groupId>
             <artifactId>bjzjf-module-statistics-api</artifactId>
-            <version>${zjf.version}</version>
+            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>site.hansi</groupId>
             <artifactId>bjzjf-module-promotion-api</artifactId>
-            <version>${zjf.version}</version>
+            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>site.hansi</groupId>
             <artifactId>bjzjf-module-product-api</artifactId>
-            <version>${zjf.version}</version>
+            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>site.hansi</groupId>
             <artifactId>bjzjf-module-trade-api</artifactId>
-            <version>${zjf.version}</version>
+            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>site.hansi</groupId>
             <artifactId>bjzjf-module-member-api</artifactId>
-            <version>${zjf.version}</version>
+            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>site.hansi</groupId>
             <artifactId>bjzjf-module-pay-api</artifactId>
-            <version>${zjf.version}</version>
+            <version>${revision}</version>
         </dependency>
 
         <!-- 业务组件 -->

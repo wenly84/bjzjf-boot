@@ -5,7 +5,7 @@
     <parent>
         <artifactId>bjzjf-framework</artifactId>
         <groupId>site.hansi</groupId>
-        <version>${zjf.version}</version>
+        <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>bjzjf-spring-boot-starter-biz-data-permission</artifactId>
@@ -38,7 +38,7 @@
         <dependency>
             <groupId>site.hansi</groupId>
             <artifactId>bjzjf-module-system-api</artifactId> <!-- 需要使用它，进行数据权限的获取 -->
-            <version>${zjf.version}</version>
+            <version>${revision}</version>
         </dependency>
 
         <!-- Test 测试相关 -->
