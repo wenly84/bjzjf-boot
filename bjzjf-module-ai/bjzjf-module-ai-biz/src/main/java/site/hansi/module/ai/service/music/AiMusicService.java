@@ -1,11 +1,15 @@
 package site.hansi.module.ai.service.music;
 
-import site.hansi.framework.common.pojo.PageResult;
-import site.hansi.module.ai.controller.admin.music.vo.*;
-import site.hansi.module.ai.dal.dataobject.music.AiMusicDO;
-import jakarta.validation.Valid;
-
 import java.util.List;
+
+import javax.validation.Valid;
+
+import site.hansi.framework.common.pojo.PageResult;
+import site.hansi.module.ai.controller.admin.music.vo.AiMusicPageReqVO;
+import site.hansi.module.ai.controller.admin.music.vo.AiMusicUpdateMyReqVO;
+import site.hansi.module.ai.controller.admin.music.vo.AiMusicUpdateReqVO;
+import site.hansi.module.ai.controller.admin.music.vo.AiSunoGenerateReqVO;
+import site.hansi.module.ai.dal.dataobject.music.AiMusicDO;
 
 /**
  * AI 音乐 Service 接口

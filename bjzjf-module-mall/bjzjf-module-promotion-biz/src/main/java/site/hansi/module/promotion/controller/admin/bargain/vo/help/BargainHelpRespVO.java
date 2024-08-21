@@ -18,7 +18,7 @@ public class BargainHelpRespVO extends BargainHelpBaseVO {
 
     // ========== 用户相关 ==========
 
-    @Schema(description = "用户昵称", example = "老芋艿")
+    @Schema(description = "用户昵称", example = "老智匠坊")
     private String nickname;
 
     @Schema(description = "用户头像", requiredMode = Schema.RequiredMode.REQUIRED, example = "https://www.hansi.site/xxx.jpg")

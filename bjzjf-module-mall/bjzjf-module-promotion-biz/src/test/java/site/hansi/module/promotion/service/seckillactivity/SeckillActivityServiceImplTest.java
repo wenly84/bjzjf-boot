@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.*;
 * @author 北京智匠坊
 */
 @Import(SeckillActivityServiceImpl.class)
-@Disabled // TODO 芋艿：未来开启
+@Disabled // TODO 智匠坊：未来开启
 public class SeckillActivityServiceImplTest extends BaseDbUnitTest {
 
     @Resource

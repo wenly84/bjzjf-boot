@@ -1,25 +1,26 @@
 package site.hansi.framework.ai.core.model.midjourney.api;
 
-import cn.hutool.core.util.StrUtil;
-import site.hansi.framework.common.util.json.JsonUtils;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.ai.openai.api.ApiUtils;
-import org.springframework.http.HttpRequest;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.web.reactive.function.client.ClientResponse;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Predicate;
+
+import org.springframework.ai.openai.api.ApiUtils;
+import org.springframework.http.HttpRequest;
+import org.springframework.web.reactive.function.client.ClientResponse;
+import org.springframework.web.reactive.function.client.WebClient;
+
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
+
+import cn.hutool.core.util.StrUtil;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+import reactor.core.publisher.Mono;
+import site.hansi.framework.common.util.json.JsonUtils;
 
 /**
  * Midjourney API
@@ -30,15 +31,15 @@ import java.util.function.Predicate;
 @Slf4j
 public class MidjourneyApi {
 
-    private final Predicate<HttpStatusCode> STATUS_PREDICATE = status -> !status.is2xxSuccessful();
+//    private final Predicate<HttpStatusCode> STATUS_PREDICATE = status -> !status.is2xxSuccessful();
 
-    private final Function<Object, Function<ClientResponse, Mono<? extends Throwable>>> EXCEPTION_FUNCTION =
-            reqParam -> response -> response.bodyToMono(String.class).handle((responseBody, sink) -> {
-                HttpRequest request = response.request();
-                log.error("[midjourney-api] 调用失败！请求方式:[{}]，请求地址:[{}]，请求参数:[{}]，响应数据: [{}]",
-                        request.getMethod(), request.getURI(), reqParam, responseBody);
-                sink.error(new IllegalStateException("[midjourney-api] 调用失败！"));
-            });
+//    private final Function<Object, Function<ClientResponse, Mono<? extends Throwable>>> EXCEPTION_FUNCTION =
+//            reqParam -> response -> response.bodyToMono(String.class).handle((responseBody, sink) -> {
+//                HttpRequest request = response.request();
+//                log.error("[midjourney-api] 调用失败！请求方式:[{}]，请求地址:[{}]，请求参数:[{}]，响应数据: [{}]",
+//                        request.getMethod(), request.getURI(), reqParam, responseBody);
+//                sink.error(new IllegalStateException("[midjourney-api] 调用失败！"));
+//            });
 
     private final WebClient webClient;
 
@@ -99,7 +100,7 @@ public class MidjourneyApi {
                 .uri(uri)
                 .body(Mono.just(JsonUtils.toJsonString(body)), String.class)
                 .retrieve()
-                .onStatus(STATUS_PREDICATE, EXCEPTION_FUNCTION.apply(body))
+                //.onStatus(STATUS_PREDICATE, EXCEPTION_FUNCTION.apply(body))
                 .bodyToMono(String.class)
                 .block();
     }
@@ -177,11 +178,53 @@ public class MidjourneyApi {
      * @param properties 扩展字段
      * @param result 任务ID
      */
-    public record SubmitResponse(String code,
-                                 String description,
-                                 Map<String, Object> properties,
-                                 String result) {
-    }
+//    public record SubmitResponse(String code,
+//                                 String description,
+//                                 Map<String, Object> properties,
+//                                 String result) {
+//    }
+    
+    public class SubmitResponse {
+    	
+    	public String getCode() {
+			return code;
+		}
+		public void setCode(String code) {
+			this.code = code;
+		}
+		public String getDescription() {
+			return description;
+		}
+		public void setDescription(String description) {
+			this.description = description;
+		}
+		public Map<String, Object> getProperties() {
+			return properties;
+		}
+		public void setProperties(Map<String, Object> properties) {
+			this.properties = properties;
+		}
+		public String getResult() {
+			return result;
+		}
+		public void setResult(String result) {
+			this.result = result;
+		}
+		private String code;
+    	private String description;
+    	private Map<String, Object> properties;
+    	private String result;
+    	public SubmitResponse(String code,
+                String description,
+                Map<String, Object> properties,
+                String result) {
+    		this.code = code;
+    		this.description = description;
+    		this.properties = properties;
+    		this.result = result;
+    		
+    	}
+}
 
     /**
      * 通知 request
@@ -201,24 +244,201 @@ public class MidjourneyApi {
      * @param failReason 失败原因
      * @param buttons 任务完成后的可执行按钮
      */
-    public record Notify(String id,
-                         String action,
-                         String status,
+//    public record Notify(String id,
+//                         String action,
+//                         String status,
+//
+//                         String prompt,
+//                         String promptEn,
+//
+//                         String description,
+//                         String state,
+//
+//                         Long submitTime,
+//                         Long startTime,
+//                         Long finishTime,
+//
+//                         String imageUrl,
+//                         String progress,
+//                         String failReason,
+//                         List<Button> buttons) {
+//
+//    }
+    
+    
+    public class Notify {
+    	
+       public String getId() {
+			return id;
+		}
 
-                         String prompt,
-                         String promptEn,
+		public void setId(String id) {
+			this.id = id;
+		}
 
-                         String description,
-                         String state,
+		public String getAction() {
+			return action;
+		}
 
-                         Long submitTime,
-                         Long startTime,
-                         Long finishTime,
+		public void setAction(String action) {
+			this.action = action;
+		}
 
-                         String imageUrl,
-                         String progress,
-                         String failReason,
-                         List<Button> buttons) {
+		public String getStatus() {
+			return status;
+		}
+
+		public void setStatus(String status) {
+			this.status = status;
+		}
+
+		public String getPrompt() {
+			return prompt;
+		}
+
+		public void setPrompt(String prompt) {
+			this.prompt = prompt;
+		}
+
+		public String getPromptEn() {
+			return promptEn;
+		}
+
+		public void setPromptEn(String promptEn) {
+			this.promptEn = promptEn;
+		}
+
+		public String getDescription() {
+			return description;
+		}
+
+		public void setDescription(String description) {
+			this.description = description;
+		}
+
+		public String getState() {
+			return state;
+		}
+
+		public void setState(String state) {
+			this.state = state;
+		}
+
+		public Long getSubmitTime() {
+			return submitTime;
+		}
+
+		public void setSubmitTime(Long submitTime) {
+			this.submitTime = submitTime;
+		}
+
+		public Long getStartTime() {
+			return startTime;
+		}
+
+		public void setStartTime(Long startTime) {
+			this.startTime = startTime;
+		}
+
+		public Long getFinishTime() {
+			return finishTime;
+		}
+
+		public void setFinishTime(Long finishTime) {
+			this.finishTime = finishTime;
+		}
+
+		public String getImageUrl() {
+			return imageUrl;
+		}
+
+		public void setImageUrl(String imageUrl) {
+			this.imageUrl = imageUrl;
+		}
+
+		public String getProgress() {
+			return progress;
+		}
+
+		public void setProgress(String progress) {
+			this.progress = progress;
+		}
+
+		public String getFailReason() {
+			return failReason;
+		}
+
+		public void setFailReason(String failReason) {
+			this.failReason = failReason;
+		}
+
+		public List<Button> getButtons() {
+			return buttons;
+		}
+
+		public void setButtons(List<Button> buttons) {
+			this.buttons = buttons;
+		}
+
+	private String id;
+    	
+       private  String action;
+       private String status;
+
+       private String prompt;
+       private String promptEn;
+
+       private String description;
+       private String state;
+
+       private Long submitTime;
+       private Long startTime;
+       private Long finishTime;
+
+       private String imageUrl;
+       private String progress;
+       private String failReason;
+       private List<Button> buttons;
+    	
+    	public Notify(String id,
+                String action,
+                String status,
+
+                String prompt,
+                String promptEn,
+
+                String description,
+                String state,
+
+                Long submitTime,
+                Long startTime,
+                Long finishTime,
+
+                String imageUrl,
+                String progress,
+                String failReason,
+                List<Button> buttons) {
+    		
+    		   this.id = id;
+    	       this.action = action;
+    	       this.status = status;
+
+    	       this.prompt = prompt;
+    	       this.promptEn = promptEn;
+
+    	       this.description = description;
+    	       this.state = state;
+
+    	       this.submitTime = submitTime;
+    	       this.startTime = startTime;
+    	       this.finishTime = finishTime;
+
+    	       this.imageUrl = imageUrl;
+    	       this.progress = progress;
+    	       this.failReason = failReason;
+    	       this.buttons = buttons;
+    		
+    	};
 
     }
 
@@ -231,11 +451,72 @@ public class MidjourneyApi {
      * @param type 类型，系统内部使用
      * @param style 样式: 2（Primary）、3（Green）
      */
-    public record Button(String customId,
-                         String emoji,
-                         String label,
-                         String type,
-                         String style) {
+//    public record Button(String customId,
+//                         String emoji,
+//                         String label,
+//                         String type,
+//                         String style) {
+//    }
+    
+    public class Button{
+    	
+    	public String getCustomId() {
+			return customId;
+		}
+
+		public void setCustomId(String customId) {
+			this.customId = customId;
+		}
+
+		public String getEmoji() {
+			return emoji;
+		}
+
+		public void setEmoji(String emoji) {
+			this.emoji = emoji;
+		}
+
+		public String getLabel() {
+			return label;
+		}
+
+		public void setLabel(String label) {
+			this.label = label;
+		}
+
+		public String getType() {
+			return type;
+		}
+
+		public void setType(String type) {
+			this.type = type;
+		}
+
+		public String getStyle() {
+			return style;
+		}
+
+		public void setStyle(String style) {
+			this.style = style;
+		}
+
+		private String customId;
+    	private String emoji;
+    	private String label;
+    	private String type;
+    	private String style;
+    	
+    	Button(String customId,
+                String emoji,
+                String label,
+                String type,
+                String style){
+    		this.customId = customId;
+    		this.emoji = emoji;
+    		this.label = label;
+    		this.type = type;
+    		this.style = style;
+    	}
     }
 
     // ============ enums ============
@@ -342,6 +623,15 @@ public class MidjourneyApi {
         SUCCESS(4);
 
         private final int order;
+        
+        
+        public static TaskStatusEnum getTaskStatusEnumByCode(int order) {
+        	for(TaskStatusEnum taskStatusEnum: TaskStatusEnum.values() ) {
+        		if(taskStatusEnum.order == order) {
+        			return taskStatusEnum;
+        		}
+        	}
+        }
 
     }
 

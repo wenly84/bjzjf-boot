@@ -102,7 +102,7 @@ public class RewardActivityServiceImpl implements RewardActivityService {
         return activity;
     }
 
-    // TODO @芋艿：逻辑有问题，需要优化；要分成全场、和指定来校验；
+    // TODO @智匠坊：逻辑有问题，需要优化；要分成全场、和指定来校验；
 
     /**
      * 校验商品参加的活动是否冲突
@@ -151,7 +151,7 @@ public class RewardActivityServiceImpl implements RewardActivityService {
 
     @Override
     public List<RewardActivityMatchRespDTO> getMatchRewardActivityList(Collection<Long> spuIds) {
-        // TODO 芋艿：待实现；先指定，然后再全局的；
+        // TODO 智匠坊：待实现；先指定，然后再全局的；
 //        // 如果有全局活动，则直接选择它
 //        List<RewardActivityDO> allActivities = rewardActivityMapper.selectListByProductScopeAndStatus(
 //                PromotionProductScopeEnum.ALL.getScope(), PromotionActivityStatusEnum.RUN.getStatus());

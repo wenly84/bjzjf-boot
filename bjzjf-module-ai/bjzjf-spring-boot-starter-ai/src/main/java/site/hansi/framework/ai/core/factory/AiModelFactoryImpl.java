@@ -13,12 +13,6 @@ import site.hansi.framework.ai.core.model.deepseek.DeepSeekChatModel;
 import site.hansi.framework.ai.core.model.midjourney.api.MidjourneyApi;
 import site.hansi.framework.ai.core.model.suno.api.SunoApi;
 import site.hansi.framework.ai.core.model.xinghuo.XingHuoChatModel;
-import com.alibaba.cloud.ai.tongyi.TongYiAutoConfiguration;
-import com.alibaba.cloud.ai.tongyi.TongYiConnectionProperties;
-import com.alibaba.cloud.ai.tongyi.chat.TongYiChatModel;
-import com.alibaba.cloud.ai.tongyi.chat.TongYiChatProperties;
-import com.alibaba.cloud.ai.tongyi.image.TongYiImagesModel;
-import com.alibaba.cloud.ai.tongyi.image.TongYiImagesProperties;
 import com.alibaba.dashscope.aigc.generation.Generation;
 import com.alibaba.dashscope.aigc.imagesynthesis.ImageSynthesis;
 import org.springframework.ai.autoconfigure.ollama.OllamaAutoConfiguration;
@@ -38,7 +32,6 @@ import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.ollama.api.OllamaApi;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.ai.openai.OpenAiImageModel;
-import org.springframework.ai.openai.api.ApiUtils;
 import org.springframework.ai.openai.api.OpenAiApi;
 import org.springframework.ai.openai.api.OpenAiImageApi;
 import org.springframework.ai.qianfan.QianFanChatModel;
@@ -70,8 +63,6 @@ public class AiModelFactoryImpl implements AiModelFactory {
         return Singleton.get(cacheKey, (Func0<ChatModel>) () -> {
             //noinspection EnhancedSwitchMigration
             switch (platform) {
-                case TONG_YI:
-                    return buildTongYiChatModel(apiKey);
                 case YI_YAN:
                     return buildYiYanChatModel(apiKey);
                 case DEEP_SEEK:
@@ -94,8 +85,6 @@ public class AiModelFactoryImpl implements AiModelFactory {
     public ChatModel getDefaultChatModel(AiPlatformEnum platform) {
         //noinspection EnhancedSwitchMigration
         switch (platform) {
-            case TONG_YI:
-                return SpringUtil.getBean(TongYiChatModel.class);
             case YI_YAN:
                 return SpringUtil.getBean(QianFanChatModel.class);
             case DEEP_SEEK:
@@ -117,8 +106,6 @@ public class AiModelFactoryImpl implements AiModelFactory {
     public ImageModel getDefaultImageModel(AiPlatformEnum platform) {
         //noinspection EnhancedSwitchMigration
         switch (platform) {
-            case TONG_YI:
-                return SpringUtil.getBean(TongYiImagesModel.class);
             case YI_YAN:
                 return SpringUtil.getBean(QianFanImageModel.class);
             case ZHI_PU:
@@ -136,8 +123,6 @@ public class AiModelFactoryImpl implements AiModelFactory {
     public ImageModel getOrCreateImageModel(AiPlatformEnum platform, String apiKey, String url) {
         //noinspection EnhancedSwitchMigration
         switch (platform) {
-            case TONG_YI:
-                return buildTongYiImagesModel(apiKey);
             case YI_YAN:
                 return buildQianFanImageModel(apiKey);
             case ZHI_PU:
@@ -171,30 +156,6 @@ public class AiModelFactoryImpl implements AiModelFactory {
             return clazz.getName();
         }
         return StrUtil.format("{}#{}", clazz.getName(), ArrayUtil.join(params, "_"));
-    }
-
-    // ========== 各种创建 spring-ai 客户端的方法 ==========
-
-    /**
-     * 可参考 {@link TongYiAutoConfiguration#tongYiChatClient(Generation, TongYiChatProperties, TongYiConnectionProperties)}
-     */
-    private static TongYiChatModel buildTongYiChatModel(String key) {
-        com.alibaba.dashscope.aigc.generation.Generation generation = SpringUtil.getBean(Generation.class);
-        TongYiChatProperties chatOptions = SpringUtil.getBean(TongYiChatProperties.class);
-        // TODO @芋艿：貌似 apiKey 是全局唯一的？？？得测试下
-        // TODO @芋艿：貌似阿里云不是增量返回的
-        // 该 issue 进行跟进中 https://github.com/alibaba/spring-cloud-alibaba/issues/3790
-        TongYiConnectionProperties connectionProperties = new TongYiConnectionProperties();
-        connectionProperties.setApiKey(key);
-        return new TongYiAutoConfiguration().tongYiChatClient(generation, chatOptions, connectionProperties);
-    }
-
-    private static TongYiImagesModel buildTongYiImagesModel(String key) {
-        ImageSynthesis imageSynthesis = SpringUtil.getBean(ImageSynthesis.class);
-        TongYiImagesProperties imagesOptions = SpringUtil.getBean(TongYiImagesProperties.class);
-        TongYiConnectionProperties connectionProperties = new TongYiConnectionProperties();
-        connectionProperties.setApiKey(key);
-        return new TongYiAutoConfiguration().tongYiImagesClient(imageSynthesis, imagesOptions, connectionProperties);
     }
 
     /**
@@ -244,8 +205,8 @@ public class AiModelFactoryImpl implements AiModelFactory {
      */
     private ZhiPuAiImageModel buildZhiPuAiImageModel(String apiKey, String url) {
         url = StrUtil.blankToDefault(url, ZhiPuAiConnectionProperties.DEFAULT_BASE_URL);
-        ZhiPuAiImageApi zhiPuAiApi = new ZhiPuAiImageApi(url, apiKey, RestClient.builder());
-        return new ZhiPuAiImageModel(zhiPuAiApi);
+        //ZhiPuAiImageApi zhiPuAiApi = new ZhiPuAiImageApi(url, apiKey, RestClient.builder());
+        return new ZhiPuAiImageModel(null);
     }
 
     /**
@@ -260,10 +221,10 @@ public class AiModelFactoryImpl implements AiModelFactory {
     }
 
     /**
-     * 可参考 {@link OpenAiAutoConfiguration}
+     * 可参考 {@link OpenAiAutoConfiguration} 
      */
     private static OpenAiChatModel buildOpenAiChatModel(String openAiToken, String url) {
-        url = StrUtil.blankToDefault(url, ApiUtils.DEFAULT_BASE_URL);
+        url = StrUtil.blankToDefault(url, "https://api.openai.com");
         OpenAiApi openAiApi = new OpenAiApi(url, openAiToken);
         return new OpenAiChatModel(openAiApi);
     }
@@ -272,9 +233,9 @@ public class AiModelFactoryImpl implements AiModelFactory {
      * 可参考 {@link OpenAiAutoConfiguration}
      */
     private OpenAiImageModel buildOpenAiImageModel(String openAiToken, String url) {
-        url = StrUtil.blankToDefault(url, ApiUtils.DEFAULT_BASE_URL);
-        OpenAiImageApi openAiApi = new OpenAiImageApi(url, openAiToken, RestClient.builder());
-        return new OpenAiImageModel(openAiApi);
+        url = StrUtil.blankToDefault(url, "https://api.openai.com");
+        //OpenAiImageApi openAiApi = new OpenAiImageApi(url, openAiToken, RestClient.builder());
+        return new OpenAiImageModel(null);
     }
 
     /**

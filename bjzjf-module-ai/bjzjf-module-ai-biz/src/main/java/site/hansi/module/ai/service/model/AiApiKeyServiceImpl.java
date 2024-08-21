@@ -1,5 +1,21 @@
 package site.hansi.module.ai.service.model;
 
+import static site.hansi.framework.common.exception.util.ServiceExceptionUtil.exception;
+import static site.hansi.module.ai.enums.ErrorCodeConstants.API_KEY_DISABLE;
+import static site.hansi.module.ai.enums.ErrorCodeConstants.API_KEY_IMAGE_NODE_FOUND;
+import static site.hansi.module.ai.enums.ErrorCodeConstants.API_KEY_MIDJOURNEY_NOT_FOUND;
+import static site.hansi.module.ai.enums.ErrorCodeConstants.API_KEY_NOT_EXISTS;
+import static site.hansi.module.ai.enums.ErrorCodeConstants.API_KEY_SUNO_NOT_FOUND;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.ai.chat.model.ChatModel;
+import org.springframework.ai.image.ImageModel;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
 import site.hansi.framework.ai.core.enums.AiPlatformEnum;
 import site.hansi.framework.ai.core.factory.AiModelFactory;
 import site.hansi.framework.ai.core.model.midjourney.api.MidjourneyApi;
@@ -11,16 +27,6 @@ import site.hansi.module.ai.controller.admin.model.vo.apikey.AiApiKeyPageReqVO;
 import site.hansi.module.ai.controller.admin.model.vo.apikey.AiApiKeySaveReqVO;
 import site.hansi.module.ai.dal.dataobject.model.AiApiKeyDO;
 import site.hansi.module.ai.dal.mysql.model.AiApiKeyMapper;
-import jakarta.annotation.Resource;
-import org.springframework.ai.chat.model.ChatModel;
-import org.springframework.ai.image.ImageModel;
-import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-
-import java.util.List;
-
-import static site.hansi.framework.common.exception.util.ServiceExceptionUtil.exception;
-import static site.hansi.module.ai.enums.ErrorCodeConstants.*;
 
 /**
  * AI API 密钥 Service 实现类

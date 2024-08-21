@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
  *
  * @author 北京智匠坊
  */
-@Disabled // TODO 芋艿：后续 fix 补充的单测
+@Disabled // TODO 智匠坊：后续 fix 补充的单测
 @Import(ProductCategoryServiceImpl.class)
 public class ProductCategoryServiceImplTest extends BaseDbUnitTest {
 

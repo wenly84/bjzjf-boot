@@ -37,7 +37,7 @@ public class RewardActivityMatchRespDTO {
      */
     private List<Long> spuIds;
 
-    // TODO 芋艿：后面 RewardActivityRespDTO 有了之后，Rule 可以放过去
+    // TODO 智匠坊：后面 RewardActivityRespDTO 有了之后，Rule 可以放过去
     /**
      * 优惠规则
      */

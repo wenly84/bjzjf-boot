@@ -1,10 +1,12 @@
 package site.hansi.module.ai.controller.admin.model.vo.chatModel;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 import site.hansi.framework.common.enums.CommonStatusEnum;
 import site.hansi.framework.common.validation.InEnum;
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.*;
-import jakarta.validation.constraints.*;
 
 @Schema(description = "管理后台 - API 聊天模型新增/修改 Request VO")
 @Data

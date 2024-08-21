@@ -26,7 +26,7 @@ import static cn.hutool.core.util.RandomUtil.randomNumbers;
 import static site.hansi.framework.test.core.util.RandomUtils.randomPojo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-// TODO @芋艿：单测的 review，等逻辑都达成一致后
+// TODO @智匠坊：单测的 review，等逻辑都达成一致后
 /**
  * {@link MemberUserServiceImpl} 的单元测试类
  *
@@ -56,7 +56,7 @@ public class MemberUserServiceImplTest extends BaseDbAndRedisUnitTest {
     @MockBean
     private FileApi fileApi;
 
-    // TODO 芋艿：后续重构这个单测
+    // TODO 智匠坊：后续重构这个单测
 //    @Test
 //    public void testUpdateNickName_success(){
 //        // mock 数据
@@ -94,7 +94,7 @@ public class MemberUserServiceImplTest extends BaseDbAndRedisUnitTest {
 //    }
 
     @Test
-    @Disabled // TODO 芋艿：后续再修复
+    @Disabled // TODO 智匠坊：后续再修复
     public void updateMobile_success(){
         // mock数据
         String oldMobile = randomNumbers(11);
@@ -102,7 +102,7 @@ public class MemberUserServiceImplTest extends BaseDbAndRedisUnitTest {
         userDO.setMobile(oldMobile);
         userMapper.insert(userDO);
 
-        // TODO 芋艿：需要修复该单元测试，重构多模块带来的
+        // TODO 智匠坊：需要修复该单元测试，重构多模块带来的
         // 旧手机和旧验证码
 //        SmsCodeDO codeDO = new SmsCodeDO();
         String oldCode = RandomUtil.randomString(4);

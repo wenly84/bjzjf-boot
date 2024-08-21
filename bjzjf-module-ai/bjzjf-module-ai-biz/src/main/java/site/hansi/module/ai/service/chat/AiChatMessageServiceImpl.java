@@ -1,8 +1,38 @@
 package site.hansi.module.ai.service.chat;
 
+import static site.hansi.framework.common.exception.util.ServiceExceptionUtil.exception;
+import static site.hansi.framework.common.pojo.CommonResult.error;
+import static site.hansi.framework.common.pojo.CommonResult.success;
+import static site.hansi.framework.common.util.collection.CollectionUtils.convertList;
+import static site.hansi.module.ai.enums.ErrorCodeConstants.CHAT_CONVERSATION_NOT_EXISTS;
+import static site.hansi.module.ai.enums.ErrorCodeConstants.CHAT_MESSAGE_NOT_EXIST;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.ai.chat.messages.Message;
+import org.springframework.ai.chat.messages.MessageType;
+import org.springframework.ai.chat.messages.SystemMessage;
+import org.springframework.ai.chat.messages.UserMessage;
+import org.springframework.ai.chat.model.ChatModel;
+import org.springframework.ai.chat.model.ChatResponse;
+import org.springframework.ai.chat.model.StreamingChatModel;
+import org.springframework.ai.chat.prompt.ChatOptions;
+import org.springframework.ai.chat.prompt.Prompt;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjUtil;
 import cn.hutool.core.util.StrUtil;
+import lombok.extern.slf4j.Slf4j;
+import reactor.core.publisher.Flux;
 import site.hansi.framework.ai.core.enums.AiPlatformEnum;
 import site.hansi.framework.ai.core.util.AiUtils;
 import site.hansi.framework.common.pojo.CommonResult;
@@ -19,27 +49,6 @@ import site.hansi.module.ai.dal.mysql.chat.AiChatMessageMapper;
 import site.hansi.module.ai.enums.ErrorCodeConstants;
 import site.hansi.module.ai.service.model.AiApiKeyService;
 import site.hansi.module.ai.service.model.AiChatModelService;
-import jakarta.annotation.Resource;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.ai.chat.messages.*;
-import org.springframework.ai.chat.model.ChatModel;
-import org.springframework.ai.chat.model.ChatResponse;
-import org.springframework.ai.chat.model.StreamingChatModel;
-import org.springframework.ai.chat.prompt.ChatOptions;
-import org.springframework.ai.chat.prompt.Prompt;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import reactor.core.publisher.Flux;
-
-import java.time.LocalDateTime;
-import java.util.*;
-
-import static site.hansi.framework.common.exception.util.ServiceExceptionUtil.exception;
-import static site.hansi.framework.common.pojo.CommonResult.error;
-import static site.hansi.framework.common.pojo.CommonResult.success;
-import static site.hansi.framework.common.util.collection.CollectionUtils.convertList;
-import static site.hansi.module.ai.enums.ErrorCodeConstants.CHAT_CONVERSATION_NOT_EXISTS;
-import static site.hansi.module.ai.enums.ErrorCodeConstants.CHAT_MESSAGE_NOT_EXIST;
 
 /**
  * AI 聊天消息 Service 实现类

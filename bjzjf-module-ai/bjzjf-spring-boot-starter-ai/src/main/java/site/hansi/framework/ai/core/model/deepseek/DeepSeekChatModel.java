@@ -1,7 +1,13 @@
 package site.hansi.framework.ai.core.model.deepseek;
 
-import cn.hutool.core.lang.Assert;
-import lombok.extern.slf4j.Slf4j;
+import static site.hansi.framework.ai.core.model.deepseek.DeepSeekChatOptions.MODEL_DEFAULT;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import org.springframework.ai.chat.metadata.ChatGenerationMetadata;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
@@ -15,13 +21,10 @@ import org.springframework.ai.openai.metadata.OpenAiChatResponseMetadata;
 import org.springframework.ai.retry.RetryUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.retry.support.RetryTemplate;
+
+import cn.hutool.core.lang.Assert;
+import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static site.hansi.framework.ai.core.model.deepseek.DeepSeekChatOptions.MODEL_DEFAULT;
 
 /**
  * DeepSeek {@link ChatModel} 实现类
@@ -70,12 +73,12 @@ public class DeepSeekChatModel implements ChatModel {
             OpenAiApi.ChatCompletion chatCompletion = completionEntity.getBody();
             if (chatCompletion == null) {
                 log.warn("No chat completion returned for prompt: {}", prompt);
-                return new ChatResponse(List.of());
+                return new ChatResponse(Arrays.asList());
             }
             List<OpenAiApi.ChatCompletion.Choice> choices = chatCompletion.choices();
             if (choices == null) {
                 log.warn("No choices returned for prompt: {}", prompt);
-                return new ChatResponse(List.of());
+                return new ChatResponse(Arrays.asList());
             }
 
             // 2. 转换 ChatResponse 返回
@@ -85,7 +88,7 @@ public class DeepSeekChatModel implements ChatModel {
                     generation.withGenerationMetadata(ChatGenerationMetadata.from(choice.finishReason().name(), null));
                 }
                 return generation;
-            }).toList();
+            }).collect(Collectors.toList());
             return new ChatResponse(generations,
                     OpenAiChatResponseMetadata.from(completionEntity.getBody()));
         });
@@ -120,14 +123,17 @@ public class DeepSeekChatModel implements ChatModel {
                         // 兜底处理 DeepSeek 返回 STOP 时，role 为空的情况
                         role = OpenAiApi.ChatCompletionMessage.Role.ASSISTANT.name();
                     }
-                    Generation generation = new Generation(choice.delta().content(),
-                            Map.of("id", id, "role", role, "finishReason", finish));
+                    Map<String, Object> map = new HashMap<String, Object>();
+                    map.put("id", id);
+                    map.put("role", role);
+                    map.put("finishReason", finish);
+                    Generation generation = new Generation(choice.delta().content(), map);
                     if (choice.finishReason() != null) {
                         generation = generation.withGenerationMetadata(
                                 ChatGenerationMetadata.from(choice.finishReason().name(), null));
                     }
                     return generation;
-                }).toList();
+                }).collect(Collectors.toList());
                 return new ChatResponse(generations);
             });
         });
@@ -136,12 +142,13 @@ public class DeepSeekChatModel implements ChatModel {
     OpenAiApi.ChatCompletionRequest createRequest(Prompt prompt, boolean stream) {
         // 1. 构建 ChatCompletionMessage 对象
         List<OpenAiApi.ChatCompletionMessage> chatCompletionMessages = prompt.getInstructions().stream().map(m ->
-                new OpenAiApi.ChatCompletionMessage(m.getContent(), OpenAiApi.ChatCompletionMessage.Role.valueOf(m.getMessageType().name()))).toList();
+                new OpenAiApi.ChatCompletionMessage(m.getContent(), OpenAiApi.ChatCompletionMessage.Role.valueOf(m.getMessageType().name()))).collect(Collectors.toList());
         OpenAiApi.ChatCompletionRequest request = new OpenAiApi.ChatCompletionRequest(chatCompletionMessages, stream);
 
         // 2.1 补充 prompt 内置的 options
         if (prompt.getOptions() != null) {
-            if (prompt.getOptions() instanceof ChatOptions runtimeOptions) {
+            if (prompt.getOptions() instanceof ChatOptions) {
+            	ChatOptions runtimeOptions = (ChatOptions)prompt.getOptions();
                 OpenAiChatOptions updatedRuntimeOptions = ModelOptionsUtils.copyToTarget(runtimeOptions,
                         ChatOptions.class, OpenAiChatOptions.class);
                 request = ModelOptionsUtils.merge(updatedRuntimeOptions, request, OpenAiApi.ChatCompletionRequest.class);

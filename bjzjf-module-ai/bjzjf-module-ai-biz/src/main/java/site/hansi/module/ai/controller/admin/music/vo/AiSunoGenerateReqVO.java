@@ -1,12 +1,13 @@
 package site.hansi.module.ai.controller.admin.music.vo;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import lombok.Data;
-
 import java.util.List;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 
 @Schema(description = "管理后台 - AI 音乐生成 Request VO")
 @Data
@@ -25,20 +26,7 @@ public class AiSunoGenerateReqVO {
     private Integer generateMode; // 参见 AiMusicGenerateModeEnum 枚举
 
     @Schema(description = "用于生成音乐音频的歌词提示",
-            example = """
-                    1.描述模式：创作一首带有轻松吉他旋律的流行歌曲，[verse] 描述夏日海滩的宁静，[chorus] 节奏加快，表达对自由的向往。
-                    2.歌词模式：
-                    [Verse]
-                    阳光下奔跑 多么欢快
-                    假期就要来 心都飞起来
-                    朋友在一旁 笑声又灿烂
-                    无忧无虑的 每一天甜蜜
-                    [Chorus]
-                    马上放假了 快来庆祝
-                    一起去旅行 快去冒险
-                    日子太短暂 别再等待
-                    马上放假了 梦想起飞
-                    """)
+            example = "1.描述模式：创作一首带有轻松吉他旋律的流行歌曲，[verse] 描述夏日海滩的宁静，[chorus] 节奏加快，表达对自由的向往。2.歌词模式：[Verse]阳光下奔跑 多么欢快假期就要来 心都飞起来朋友在一旁 笑声又灿烂无忧无虑的 每一天甜蜜[Chorus]马上放假了 快来庆祝一起去旅行 快去冒险日子太短暂 别再等待马上放假了 梦想起飞")
     private String prompt;
 
     @Schema(description = "是否纯音乐", example = "true")

@@ -165,7 +165,7 @@ public interface BpmTaskConvert {
         childTask.setParentTaskId(parentTask.getId());
         childTask.setProcessDefinitionId(parentTask.getProcessDefinitionId());
         childTask.setProcessInstanceId(parentTask.getProcessInstanceId());
-//        childTask.setExecutionId(parentTask.getExecutionId()); // TODO 芋艿：新加的，不太确定；尴尬，不加时，子任务不通过会失败（报错）；加了，子任务审批通过会失败（报错）
+//        childTask.setExecutionId(parentTask.getExecutionId()); // TODO 智匠坊：新加的，不太确定；尴尬，不加时，子任务不通过会失败（报错）；加了，子任务审批通过会失败（报错）
         childTask.setTaskDefinitionKey(parentTask.getTaskDefinitionKey());
         childTask.setTaskDefinitionId(parentTask.getTaskDefinitionId());
         childTask.setPriority(parentTask.getPriority());

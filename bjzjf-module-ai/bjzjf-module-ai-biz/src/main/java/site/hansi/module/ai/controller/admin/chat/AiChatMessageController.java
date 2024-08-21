@@ -1,7 +1,34 @@
 package site.hansi.module.ai.controller.admin.chat;
 
+import static site.hansi.framework.common.pojo.CommonResult.success;
+import static site.hansi.framework.common.util.collection.CollectionUtils.convertSet;
+import static site.hansi.framework.security.core.util.SecurityFrameworkUtils.getLoginUserId;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.annotation.security.PermitAll;
+import javax.validation.Valid;
+
+import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjUtil;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
+import reactor.core.publisher.Flux;
 import site.hansi.framework.common.pojo.CommonResult;
 import site.hansi.framework.common.pojo.PageResult;
 import site.hansi.framework.common.util.collection.MapUtils;
@@ -16,25 +43,6 @@ import site.hansi.module.ai.dal.dataobject.model.AiChatRoleDO;
 import site.hansi.module.ai.service.chat.AiChatConversationService;
 import site.hansi.module.ai.service.chat.AiChatMessageService;
 import site.hansi.module.ai.service.model.AiChatRoleService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.annotation.Resource;
-import jakarta.annotation.security.PermitAll;
-import jakarta.validation.Valid;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.MediaType;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Flux;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
-import static site.hansi.framework.common.pojo.CommonResult.success;
-import static site.hansi.framework.common.util.collection.CollectionUtils.convertSet;
-import static site.hansi.framework.security.core.util.SecurityFrameworkUtils.getLoginUserId;
 
 @Tag(name = "管理后台 - 聊天消息")
 @RestController

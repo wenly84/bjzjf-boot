@@ -1,9 +1,23 @@
 package site.hansi.module.ai.service.chat;
 
+import static site.hansi.framework.common.exception.util.ServiceExceptionUtil.exception;
+import static site.hansi.framework.common.util.collection.CollectionUtils.convertList;
+import static site.hansi.module.ai.enums.ErrorCodeConstants.CHAT_CONVERSATION_MODEL_ERROR;
+import static site.hansi.module.ai.enums.ErrorCodeConstants.CHAT_CONVERSATION_NOT_EXISTS;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.ObjUtil;
 import cn.hutool.core.util.ObjectUtil;
+import lombok.extern.slf4j.Slf4j;
 import site.hansi.framework.common.pojo.PageResult;
 import site.hansi.framework.common.util.object.BeanUtils;
 import site.hansi.module.ai.controller.admin.chat.vo.conversation.AiChatConversationCreateMyReqVO;
@@ -15,18 +29,6 @@ import site.hansi.module.ai.dal.dataobject.model.AiChatRoleDO;
 import site.hansi.module.ai.dal.mysql.chat.AiChatConversationMapper;
 import site.hansi.module.ai.service.model.AiChatModelService;
 import site.hansi.module.ai.service.model.AiChatRoleService;
-import jakarta.annotation.Resource;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-
-import java.time.LocalDateTime;
-import java.util.List;
-
-import static site.hansi.framework.common.exception.util.ServiceExceptionUtil.exception;
-import static site.hansi.framework.common.util.collection.CollectionUtils.convertList;
-import static site.hansi.module.ai.enums.ErrorCodeConstants.CHAT_CONVERSATION_MODEL_ERROR;
-import static site.hansi.module.ai.enums.ErrorCodeConstants.CHAT_CONVERSATION_NOT_EXISTS;
 
 /**
  * AI 聊天对话 Service 实现类

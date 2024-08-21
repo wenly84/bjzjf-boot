@@ -14,7 +14,7 @@ import static site.hansi.framework.common.util.date.DateUtils.FORMAT_YEAR_MONTH_
 @ToString(callSuper = true)
 public class Demo03StudentPageReqVO extends PageParam {
 
-    @Schema(description = "名字", example = "芋艿")
+    @Schema(description = "名字", example = "智匠坊")
     private String name;
 
     @Schema(description = "性别")

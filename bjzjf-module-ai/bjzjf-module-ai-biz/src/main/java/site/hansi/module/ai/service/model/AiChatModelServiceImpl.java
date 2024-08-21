@@ -1,5 +1,18 @@
 package site.hansi.module.ai.service.model;
 
+import static site.hansi.framework.common.exception.util.ServiceExceptionUtil.exception;
+import static site.hansi.module.ai.enums.ErrorCodeConstants.CHAT_MODEL_DEFAULT_NOT_EXISTS;
+import static site.hansi.module.ai.enums.ErrorCodeConstants.CHAT_MODEL_DISABLE;
+import static site.hansi.module.ai.enums.ErrorCodeConstants.CHAT_MODEL_NOT_EXISTS;
+
+import java.util.Collection;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
 import site.hansi.framework.ai.core.enums.AiPlatformEnum;
 import site.hansi.framework.common.enums.CommonStatusEnum;
 import site.hansi.framework.common.pojo.PageResult;
@@ -8,15 +21,6 @@ import site.hansi.module.ai.controller.admin.model.vo.chatModel.AiChatModelPageR
 import site.hansi.module.ai.controller.admin.model.vo.chatModel.AiChatModelSaveReqVO;
 import site.hansi.module.ai.dal.dataobject.model.AiChatModelDO;
 import site.hansi.module.ai.dal.mysql.model.AiChatModelMapper;
-import jakarta.annotation.Resource;
-import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-
-import java.util.Collection;
-import java.util.List;
-
-import static site.hansi.framework.common.exception.util.ServiceExceptionUtil.exception;
-import static site.hansi.module.ai.enums.ErrorCodeConstants.*;
 
 /**
  * AI 聊天模型 Service 实现类

@@ -34,7 +34,7 @@ import static org.mockito.Mockito.verify;
  *
  * @author 北京智匠坊
  */
-@Disabled // TODO 芋艿：后续 fix 补充的单测
+@Disabled // TODO 智匠坊：后续 fix 补充的单测
 @Import(ProductSkuServiceImpl.class)
 public class ProductSkuServiceTest extends BaseDbUnitTest {
 

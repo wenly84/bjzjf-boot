@@ -4,7 +4,6 @@ import cn.hutool.core.util.StrUtil;
 import site.hansi.framework.ai.core.enums.AiPlatformEnum;
 import site.hansi.framework.ai.core.model.deepseek.DeepSeekChatOptions;
 import site.hansi.framework.ai.core.model.xinghuo.XingHuoChatOptions;
-import com.alibaba.cloud.ai.tongyi.chat.TongYiChatOptions;
 import org.springframework.ai.chat.messages.*;
 import org.springframework.ai.chat.prompt.ChatOptions;
 import org.springframework.ai.ollama.api.OllamaOptions;
@@ -23,8 +22,6 @@ public class AiUtils {
         Float temperatureF = temperature != null ? temperature.floatValue() : null;
         //noinspection EnhancedSwitchMigration
         switch (platform) {
-            case TONG_YI:
-                return TongYiChatOptions.builder().withModel(model).withTemperature(temperature).withMaxTokens(maxTokens).build();
             case YI_YAN:
                 return QianFanChatOptions.builder().withModel(model).withTemperature(temperatureF).withMaxTokens(maxTokens).build();
             case DEEP_SEEK:
@@ -52,7 +49,7 @@ public class AiUtils {
         if (MessageType.SYSTEM.getValue().equals(type)) {
             return new SystemMessage(content);
         }
-        if (MessageType.FUNCTION.getValue().equals(type)) {
+        if (MessageType.TOOL.getValue().equals(type)) {
             return new FunctionMessage(content);
         }
         throw new IllegalArgumentException(StrUtil.format("未知消息类型({})", type));

@@ -187,7 +187,7 @@ public interface TradeOrderUpdateService {
      */
     void updateOrderCombinationInfo(Long orderId, Long activityId, Long combinationRecordId, Long headId);
 
-    // TODO 芋艿：拼团取消，不调这个接口哈；
+    // TODO 智匠坊：拼团取消，不调这个接口哈；
     /**
      * 取消支付订单
      *

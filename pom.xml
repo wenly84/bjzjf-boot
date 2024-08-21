@@ -21,7 +21,7 @@
         <module>bjzjf-module-mall</module>
         <module>bjzjf-module-crm</module>
         <module>bjzjf-module-erp</module>
-  		<!--<module>bjzjf-module-ai</module>-->
+  		<module>bjzjf-module-ai</module>
     </modules>
 
     <name>${project.artifactId}</name>
@@ -30,14 +30,14 @@
     
     <properties>
         <revision>1.0.0-snapshot</revision>
-        <java.version>1.8</java.version>
+        <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
         <flatten-maven-plugin.version>1.6.0</flatten-maven-plugin.version>
         <lombok.version>1.18.34</lombok.version>
-        <spring.boot.version>2.7.18</spring.boot.version>
+        <spring.boot.version>3.3.0</spring.boot.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -126,16 +126,15 @@
     </build>
     
     <repositories>
+		<repository>
+            <id>aliyunmaven</id>
+            <name>aliyun</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+        </repository>
         <repository>
             <id>huaweicloud</id>
             <name>huawei</name>
             <url>https://mirrors.huaweicloud.com/repository/maven/</url>
-        </repository>
-        
-        <repository>
-            <id>aliyunmaven</id>
-            <name>aliyun</name>
-            <url>https://maven.aliyun.com/repository/public</url>
         </repository>
         <repository>
             <id>spring-milestones</id>

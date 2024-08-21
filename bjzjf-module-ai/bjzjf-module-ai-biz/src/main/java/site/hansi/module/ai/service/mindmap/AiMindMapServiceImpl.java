@@ -1,8 +1,27 @@
 package site.hansi.module.ai.service.mindmap;
 
+import static site.hansi.framework.common.pojo.CommonResult.error;
+import static site.hansi.framework.common.pojo.CommonResult.success;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.ai.chat.messages.Message;
+import org.springframework.ai.chat.messages.SystemMessage;
+import org.springframework.ai.chat.messages.UserMessage;
+import org.springframework.ai.chat.model.ChatModel;
+import org.springframework.ai.chat.model.ChatResponse;
+import org.springframework.ai.chat.prompt.ChatOptions;
+import org.springframework.ai.chat.prompt.Prompt;
+import org.springframework.stereotype.Service;
+
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.StrUtil;
+import lombok.extern.slf4j.Slf4j;
+import reactor.core.publisher.Flux;
 import site.hansi.framework.ai.core.enums.AiPlatformEnum;
 import site.hansi.framework.ai.core.util.AiUtils;
 import site.hansi.framework.common.pojo.CommonResult;
@@ -18,23 +37,6 @@ import site.hansi.module.ai.enums.ErrorCodeConstants;
 import site.hansi.module.ai.service.model.AiApiKeyService;
 import site.hansi.module.ai.service.model.AiChatModelService;
 import site.hansi.module.ai.service.model.AiChatRoleService;
-import jakarta.annotation.Resource;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.ai.chat.messages.Message;
-import org.springframework.ai.chat.messages.SystemMessage;
-import org.springframework.ai.chat.messages.UserMessage;
-import org.springframework.ai.chat.model.ChatModel;
-import org.springframework.ai.chat.model.ChatResponse;
-import org.springframework.ai.chat.prompt.ChatOptions;
-import org.springframework.ai.chat.prompt.Prompt;
-import org.springframework.stereotype.Service;
-import reactor.core.publisher.Flux;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static site.hansi.framework.common.pojo.CommonResult.error;
-import static site.hansi.framework.common.pojo.CommonResult.success;
 
 /**
  * AI 思维导图 Service 实现类

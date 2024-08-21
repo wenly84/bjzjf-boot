@@ -162,21 +162,21 @@ logging:
     site.hansi.module.crm.dal.mysql: debug
     site.hansi.module.erp.dal.mysql: debug
     site.hansi.module.ai.dal.mysql: debug
-    org.springframework.context.support.PostProcessorRegistrationDelegate: ERROR # TODO 芋艿：先禁用，Spring Boot 3.X 存在部分错误的 WARN 提示
+    org.springframework.context.support.PostProcessorRegistrationDelegate: ERROR # TODO 智匠坊：先禁用，Spring Boot 3.X 存在部分错误的 WARN 提示
 
 debug: false
 
 #################### 微信公众号、小程序相关配置 ####################
 wx:
   mp: # 公众号配置
-    app-id: wxbb874b45e9817e3b 
+    app-id: wxbb874b45e9817e3b
     secret: 6aebc0b7dcfe79121c38b382972eb8ba
     config-storage:
       type: RedisTemplate # 采用 RedisTemplate 操作 Redis，会自动从 Spring 中获取
       key-prefix: wx # Redis Key 的前缀
       http-client-type: HttpClient # 采用 HttpClient 请求微信公众号平台
   miniapp: # 小程序配置
-    appid: wxbb874b45e9817e3b # 测试号（puhui 提供的）
+    appid: wxbb874b45e9817e3b
     secret: 6aebc0b7dcfe79121c38b382972eb8ba
     config-storage:
       type: RedisTemplate # 采用 RedisTemplate 操作 Redis，会自动从 Spring 中获取
@@ -201,7 +201,7 @@ bjzjf:
     env-version: develop # 小程序版本: 正式版为 "release"；体验版为 "trial"；开发版为 "develop"
   wxa-subscribe-message:
     miniprogram-state: developer # 跳转小程序类型：开发版为 “developer”；体验版为 “trial”为；正式版为 “formal”
-  tencent-lbs-key: xxxxxxx # QQ 地图的密钥 https://lbs.qq.com/service/staticV2/staticGuide/staticDoc
+  tencent-lbs-key: 26MBZ-H64WG-MJNQ4-QYEMM-3D27H-MSFXK # QQ 地图的密钥 https://lbs.qq.com/service/staticV2/staticGuide/staticDoc
 
 justauth:
   enabled: true

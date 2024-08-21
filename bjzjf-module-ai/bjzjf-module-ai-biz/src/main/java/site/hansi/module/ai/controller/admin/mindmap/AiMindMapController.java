@@ -1,21 +1,22 @@
 package site.hansi.module.ai.controller.admin.mindmap;
 
-import site.hansi.framework.common.pojo.CommonResult;
-import site.hansi.module.ai.controller.admin.mindmap.vo.AiMindMapGenerateReqVO;
-import site.hansi.module.ai.service.mindmap.AiMindMapService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.annotation.Resource;
-import jakarta.annotation.security.PermitAll;
-import jakarta.validation.Valid;
+import static site.hansi.framework.security.core.util.SecurityFrameworkUtils.getLoginUserId;
+
+import javax.annotation.Resource;
+import javax.annotation.security.PermitAll;
+import javax.validation.Valid;
+
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import reactor.core.publisher.Flux;
-
-import static site.hansi.framework.security.core.util.SecurityFrameworkUtils.getLoginUserId;
+import site.hansi.framework.common.pojo.CommonResult;
+import site.hansi.module.ai.controller.admin.mindmap.vo.AiMindMapGenerateReqVO;
+import site.hansi.module.ai.service.mindmap.AiMindMapService;
 
 @Tag(name = "管理后台 - AI 思维导图")
 @RestController

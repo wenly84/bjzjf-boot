@@ -46,7 +46,7 @@ import static site.hansi.framework.common.util.date.LocalDateTimeUtils.beforeNow
 import static site.hansi.module.promotion.enums.ErrorCodeConstants.*;
 import static site.hansi.module.promotion.enums.MessageTemplateConstants.COMBINATION_SUCCESS;
 
-// TODO 芋艿：等拼团记录做完，完整 review 下
+// TODO 智匠坊：等拼团记录做完，完整 review 下
 
 /**
  * 拼团记录 Service 实现类
@@ -76,7 +76,7 @@ public class CombinationRecordServiceImpl implements CombinationRecordService {
     @Resource
     public SocialClientApi socialClientApi;
 
-    // TODO @芋艿：在详细预览下；
+    // TODO @智匠坊：在详细预览下；
     @Override
     public KeyValue<CombinationActivityDO, CombinationProductDO> validateCombinationRecord(
             Long userId, Long activityId, Long headId, Long skuId, Integer count) {

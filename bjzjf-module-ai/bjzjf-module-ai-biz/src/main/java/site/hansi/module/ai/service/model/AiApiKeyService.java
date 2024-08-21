@@ -1,5 +1,10 @@
 package site.hansi.module.ai.service.model;
 
+import java.util.List;
+
+import javax.validation.Valid;
+import org.springframework.ai.chat.model.ChatModel;
+import org.springframework.ai.image.ImageModel;
 import site.hansi.framework.ai.core.enums.AiPlatformEnum;
 import site.hansi.framework.ai.core.model.midjourney.api.MidjourneyApi;
 import site.hansi.framework.ai.core.model.suno.api.SunoApi;
@@ -7,11 +12,6 @@ import site.hansi.framework.common.pojo.PageResult;
 import site.hansi.module.ai.controller.admin.model.vo.apikey.AiApiKeyPageReqVO;
 import site.hansi.module.ai.controller.admin.model.vo.apikey.AiApiKeySaveReqVO;
 import site.hansi.module.ai.dal.dataobject.model.AiApiKeyDO;
-import jakarta.validation.Valid;
-import org.springframework.ai.chat.model.ChatModel;
-import org.springframework.ai.image.ImageModel;
-
-import java.util.List;
 
 /**
  * AI API 密钥 Service 接口

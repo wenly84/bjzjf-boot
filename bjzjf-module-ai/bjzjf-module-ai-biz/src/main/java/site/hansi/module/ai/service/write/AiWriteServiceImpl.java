@@ -1,8 +1,30 @@
 package site.hansi.module.ai.service.write;
 
+import static site.hansi.framework.common.exception.util.ServiceExceptionUtil.exception;
+import static site.hansi.framework.common.pojo.CommonResult.error;
+import static site.hansi.framework.common.pojo.CommonResult.success;
+import static site.hansi.module.ai.enums.ErrorCodeConstants.WRITE_NOT_EXISTS;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+import javax.annotation.Resource;
+
+import org.springframework.ai.chat.messages.Message;
+import org.springframework.ai.chat.messages.SystemMessage;
+import org.springframework.ai.chat.messages.UserMessage;
+import org.springframework.ai.chat.model.ChatResponse;
+import org.springframework.ai.chat.model.StreamingChatModel;
+import org.springframework.ai.chat.prompt.ChatOptions;
+import org.springframework.ai.chat.prompt.Prompt;
+import org.springframework.stereotype.Service;
+
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.StrUtil;
+import lombok.extern.slf4j.Slf4j;
+import reactor.core.publisher.Flux;
 import site.hansi.framework.ai.core.enums.AiPlatformEnum;
 import site.hansi.framework.ai.core.util.AiUtils;
 import site.hansi.framework.common.pojo.CommonResult;
@@ -23,26 +45,6 @@ import site.hansi.module.ai.service.model.AiApiKeyService;
 import site.hansi.module.ai.service.model.AiChatModelService;
 import site.hansi.module.ai.service.model.AiChatRoleService;
 import site.hansi.module.system.api.dict.DictDataApi;
-import jakarta.annotation.Resource;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.ai.chat.messages.Message;
-import org.springframework.ai.chat.messages.SystemMessage;
-import org.springframework.ai.chat.messages.UserMessage;
-import org.springframework.ai.chat.model.ChatResponse;
-import org.springframework.ai.chat.model.StreamingChatModel;
-import org.springframework.ai.chat.prompt.ChatOptions;
-import org.springframework.ai.chat.prompt.Prompt;
-import org.springframework.stereotype.Service;
-import reactor.core.publisher.Flux;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
-import static site.hansi.framework.common.exception.util.ServiceExceptionUtil.exception;
-import static site.hansi.framework.common.pojo.CommonResult.error;
-import static site.hansi.framework.common.pojo.CommonResult.success;
-import static site.hansi.module.ai.enums.ErrorCodeConstants.WRITE_NOT_EXISTS;
 
 /**
  * AI 写作 Service 实现类

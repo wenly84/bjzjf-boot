@@ -8,13 +8,11 @@ import site.hansi.framework.ai.core.model.midjourney.api.MidjourneyApi;
 import site.hansi.framework.ai.core.model.suno.api.SunoApi;
 import site.hansi.framework.ai.core.model.xinghuo.XingHuoChatModel;
 import site.hansi.framework.ai.core.model.xinghuo.XingHuoChatOptions;
-import com.alibaba.cloud.ai.tongyi.TongYiAutoConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Import;
 
 /**
  * AI 自动配置
@@ -24,7 +22,6 @@ import org.springframework.context.annotation.Import;
 @AutoConfiguration
 @EnableConfigurationProperties(BjzjfAiProperties.class)
 @Slf4j
-@Import(TongYiAutoConfiguration.class)
 public class BjzjfAiAutoConfiguration {
 
     @Bean

@@ -1,5 +1,30 @@
 package site.hansi.module.ai.service.image;
 
+import static site.hansi.framework.common.exception.util.ServiceExceptionUtil.exception;
+import static site.hansi.framework.common.util.collection.CollectionUtils.convertMap;
+import static site.hansi.framework.common.util.collection.CollectionUtils.convertSet;
+import static site.hansi.module.ai.enums.ErrorCodeConstants.IMAGE_CUSTOM_ID_NOT_EXISTS;
+import static site.hansi.module.ai.enums.ErrorCodeConstants.IMAGE_MIDJOURNEY_SUBMIT_FAIL;
+import static site.hansi.module.ai.enums.ErrorCodeConstants.IMAGE_NOT_EXISTS;
+
+import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.ai.image.ImageModel;
+import org.springframework.ai.image.ImageOptions;
+import org.springframework.ai.image.ImagePrompt;
+import org.springframework.ai.image.ImageResponse;
+import org.springframework.ai.openai.OpenAiImageOptions;
+import org.springframework.ai.qianfan.QianFanImageOptions;
+import org.springframework.ai.stabilityai.api.StabilityAiImageOptions;
+import org.springframework.ai.zhipuai.ZhiPuAiImageOptions;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.codec.Base64;
 import cn.hutool.core.collection.CollUtil;
@@ -8,6 +33,7 @@ import cn.hutool.core.util.ObjUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import cn.hutool.http.HttpUtil;
+import lombok.extern.slf4j.Slf4j;
 import site.hansi.framework.ai.core.enums.AiPlatformEnum;
 import site.hansi.framework.ai.core.model.midjourney.api.MidjourneyApi;
 import site.hansi.framework.common.pojo.PageResult;
@@ -22,30 +48,6 @@ import site.hansi.module.ai.dal.mysql.image.AiImageMapper;
 import site.hansi.module.ai.enums.image.AiImageStatusEnum;
 import site.hansi.module.ai.service.model.AiApiKeyService;
 import site.hansi.module.infra.api.file.FileApi;
-import com.alibaba.cloud.ai.tongyi.image.TongYiImagesOptions;
-import jakarta.annotation.Resource;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.ai.image.ImageModel;
-import org.springframework.ai.image.ImageOptions;
-import org.springframework.ai.image.ImagePrompt;
-import org.springframework.ai.image.ImageResponse;
-import org.springframework.ai.openai.OpenAiImageOptions;
-import org.springframework.ai.qianfan.QianFanImageOptions;
-import org.springframework.ai.stabilityai.api.StabilityAiImageOptions;
-import org.springframework.ai.zhipuai.ZhiPuAiImageOptions;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
-import static site.hansi.framework.common.exception.util.ServiceExceptionUtil.exception;
-import static site.hansi.framework.common.util.collection.CollectionUtils.convertMap;
-import static site.hansi.framework.common.util.collection.CollectionUtils.convertSet;
-import static site.hansi.module.ai.enums.ErrorCodeConstants.*;
 
 /**
  * AI 绘画 Service 实现类
@@ -140,11 +142,6 @@ public class AiImageServiceImpl implements AiImageService {
                     .withStylePreset(String.valueOf(draw.getOptions().get("stylePreset")))
                     .withClipGuidancePreset(String.valueOf(draw.getOptions().get("clipGuidancePreset")))
                     .build();
-        } else if (ObjUtil.equal(draw.getPlatform(), AiPlatformEnum.TONG_YI.getPlatform())) {
-            return TongYiImagesOptions.builder()
-                    .withModel(draw.getModel()).withN(1)
-                    .withHeight(draw.getHeight()).withWidth(draw.getWidth())
-                    .build();
         } else if (ObjUtil.equal(draw.getPlatform(), AiPlatformEnum.YI_YAN.getPlatform())) {
             return QianFanImageOptions.builder()
                     .withModel(draw.getModel()).withN(1)
@@ -220,15 +217,15 @@ public class AiImageServiceImpl implements AiImageService {
         MidjourneyApi.SubmitResponse imagineResponse = midjourneyApi.imagine(imagineRequest);
 
         // 3. 情况一【失败】：抛出业务异常
-        if (!MidjourneyApi.SubmitCodeEnum.SUCCESS_CODES.contains(imagineResponse.code())) {
-            String description = imagineResponse.description().contains("quota_not_enough") ?
-                    "账户余额不足" : imagineResponse.description();
+        if (!MidjourneyApi.SubmitCodeEnum.SUCCESS_CODES.contains(imagineResponse.getCode())) {
+            String description = imagineResponse.getDescription().contains("quota_not_enough") ?
+                    "账户余额不足" : imagineResponse.getDescription();
             throw exception(IMAGE_MIDJOURNEY_SUBMIT_FAIL, description);
         }
 
         // 4. 情况二【成功】：更新 taskId 和参数
         imageMapper.updateById(new AiImageDO().setId(image.getId())
-                .setTaskId(imagineResponse.result()).setOptions(BeanUtil.beanToMap(reqVO)));
+                .setTaskId(imagineResponse.getResult()).setOptions(BeanUtil.beanToMap(reqVO)));
         return image.getId();
     }
 
@@ -243,7 +240,7 @@ public class AiImageServiceImpl implements AiImageService {
         }
         // 1.2 调用 Midjourney Proxy 获取任务进展
         List<MidjourneyApi.Notify> taskList = midjourneyApi.getTaskList(convertSet(imageList, AiImageDO::getTaskId));
-        Map<String, MidjourneyApi.Notify> taskMap = convertMap(taskList, MidjourneyApi.Notify::id);
+        Map<String, MidjourneyApi.Notify> taskMap = convertMap(taskList, MidjourneyApi.Notify::getId);
 
         // 2. 逐个处理，更新进展
         int count = 0;
@@ -262,9 +259,9 @@ public class AiImageServiceImpl implements AiImageService {
     @Override
     public void midjourneyNotify(MidjourneyApi.Notify notify) {
         // 1. 校验 image 存在
-        AiImageDO image = imageMapper.selectByTaskId(notify.id());
+        AiImageDO image = imageMapper.selectByTaskId(notify.getId());
         if (image == null) {
-            log.warn("[midjourneyNotify][回调任务({}) 不存在]", notify.id());
+            log.warn("[midjourneyNotify][回调任务({}) 不存在]", notify.getId());
             return;
         }
         // 2. 更新状态
@@ -275,8 +272,8 @@ public class AiImageServiceImpl implements AiImageService {
         // 1. 转换状态
         Integer status = null;
         LocalDateTime finishTime = null;
-        if (StrUtil.isNotBlank(notify.status())) {
-            MidjourneyApi.TaskStatusEnum taskStatusEnum = MidjourneyApi.TaskStatusEnum.valueOf(notify.status());
+        if (StrUtil.isNotBlank(notify.getStatus())) {
+            MidjourneyApi.TaskStatusEnum taskStatusEnum = MidjourneyApi.TaskStatusEnum.getTaskStatusEnumByCode(Integer.parseInt(notify.getStatus()));
             if (MidjourneyApi.TaskStatusEnum.SUCCESS == taskStatusEnum) {
                 status = AiImageStatusEnum.SUCCESS.getStatus();
                 finishTime = LocalDateTime.now();
@@ -288,18 +285,18 @@ public class AiImageServiceImpl implements AiImageService {
 
         // 2. 上传图片
         String picUrl = null;
-        if (StrUtil.isNotBlank(notify.imageUrl())) {
+        if (StrUtil.isNotBlank(notify.getImageUrl())) {
             try {
-                picUrl = fileApi.createFile(HttpUtil.downloadBytes(notify.imageUrl()));
+                picUrl = fileApi.createFile(HttpUtil.downloadBytes(notify.getImageUrl()));
             } catch (Exception e) {
-                picUrl = notify.imageUrl();
-                log.warn("[updateMidjourneyStatus][图片({}) 地址({}) 上传失败]", image.getId(), notify.imageUrl(), e);
+                picUrl = notify.getImageUrl();
+                log.warn("[updateMidjourneyStatus][图片({}) 地址({}) 上传失败]", image.getId(), notify.getImageUrl(), e);
             }
         }
 
         // 3. 更新 image 状态
         imageMapper.updateById(new AiImageDO().setId(image.getId()).setStatus(status)
-                .setPicUrl(picUrl).setButtons(notify.buttons()).setErrorMessage(notify.failReason())
+                .setPicUrl(picUrl).setButtons(notify.getButtons()).setErrorMessage(notify.getFailReason())
                 .setFinishTime(finishTime));
     }
 
@@ -313,17 +310,17 @@ public class AiImageServiceImpl implements AiImageService {
         }
         // 1.2 检查 customId
         MidjourneyApi.Button button = CollUtil.findOne(image.getButtons(),
-                buttonX -> buttonX.customId().equals(reqVO.getCustomId()));
+                buttonX -> buttonX.getCustomId().equals(reqVO.getCustomId()));
         if (button == null) {
             throw exception(IMAGE_CUSTOM_ID_NOT_EXISTS);
         }
 
         // 2. 调用 Midjourney Proxy 提交任务
         MidjourneyApi.SubmitResponse actionResponse = midjourneyApi.action(
-                new MidjourneyApi.ActionRequest(button.customId(), image.getTaskId(), null));
-        if (!MidjourneyApi.SubmitCodeEnum.SUCCESS_CODES.contains(actionResponse.code())) {
-            String description = actionResponse.description().contains("quota_not_enough") ?
-                    "账户余额不足" : actionResponse.description();
+                new MidjourneyApi.ActionRequest(button.getCustomId(), image.getTaskId(), null));
+        if (!MidjourneyApi.SubmitCodeEnum.SUCCESS_CODES.contains(actionResponse.getCode())) {
+            String description = actionResponse.getDescription().contains("quota_not_enough") ?
+                    "账户余额不足" : actionResponse.getDescription();
             throw exception(IMAGE_MIDJOURNEY_SUBMIT_FAIL, description);
         }
 
@@ -332,7 +329,7 @@ public class AiImageServiceImpl implements AiImageService {
                 .setStatus(AiImageStatusEnum.IN_PROGRESS.getStatus())
                 .setPlatform(AiPlatformEnum.MIDJOURNEY.getPlatform())
                 .setModel(image.getModel()).setWidth(image.getWidth()).setHeight(image.getHeight())
-                .setOptions(image.getOptions()).setTaskId(actionResponse.result());
+                .setOptions(image.getOptions()).setTaskId(actionResponse.getResult());
         imageMapper.insert(newImage);
         return newImage.getId();
     }

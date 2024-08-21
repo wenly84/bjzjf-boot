@@ -1,9 +1,10 @@
 package site.hansi.module.ai.controller.admin.model.vo.apikey;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.*;
-import java.util.*;
-import jakarta.validation.constraints.*;
+import lombok.Data;
 
 @Schema(description = "管理后台 - AI API 密钥新增/修改 Request VO")
 @Data

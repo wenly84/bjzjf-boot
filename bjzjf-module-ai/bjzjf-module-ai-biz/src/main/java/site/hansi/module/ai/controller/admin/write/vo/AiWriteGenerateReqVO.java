@@ -1,10 +1,11 @@
 package site.hansi.module.ai.controller.admin.write.vo;
 
+import javax.validation.constraints.NotNull;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 import site.hansi.framework.common.validation.InEnum;
 import site.hansi.module.ai.enums.write.AiWriteTypeEnum;
-import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotNull;
-import lombok.Data;
 
 @Schema(description = "管理后台 - AI 写作生成 Request VO")
 @Data

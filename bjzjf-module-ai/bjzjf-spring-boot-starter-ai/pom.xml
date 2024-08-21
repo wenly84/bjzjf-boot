@@ -14,6 +14,7 @@
     <name>${project.artifactId}</name>
     <description>AI 大模型拓展，接入国内外大模型</description>
     <properties>
+        <!--<spring-ai.version>1.0.0-SNAPSHOT</spring-ai.version>-->
         <spring-ai.version>1.0.0-M1</spring-ai.version>
     </properties>
 
@@ -45,7 +46,7 @@
             <artifactId>bjzjf-common</artifactId>
         </dependency>
 
-        <!-- TODO 芋艿：等 spring-ai 官方发布后，需要把 groupId 改下 -->
+        <!-- 智匠坊：等 spring-ai 官方发布后，需要把 groupId 改下 -->
         <dependency>
             <groupId>group.springframework.ai</groupId>
             <artifactId>spring-ai-qianfan-spring-boot-starter</artifactId>
@@ -53,7 +54,7 @@
         </dependency>
 
         <!-- 阿里云 通义千问 -->
-        <!-- TODO 芋艿：等 spring cloud alibaba ai 发布最新的时候，可以替换掉这个依赖，并且删除我们直接 cv 的代码 -->
+        <!-- 智匠坊：等 spring cloud alibaba ai 发布最新的时候，可以替换掉这个依赖，并且删除我们直接 cv 的代码 -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>dashscope-sdk-java</artifactId>

@@ -1,10 +1,12 @@
 package site.hansi.module.ai.job.music;
 
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Component;
+
+import lombok.extern.slf4j.Slf4j;
 import site.hansi.framework.quartz.core.handler.JobHandler;
 import site.hansi.module.ai.service.music.AiMusicService;
-import jakarta.annotation.Resource;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
 
 /**

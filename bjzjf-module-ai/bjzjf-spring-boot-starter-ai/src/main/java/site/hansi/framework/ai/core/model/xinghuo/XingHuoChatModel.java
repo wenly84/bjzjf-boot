@@ -17,9 +17,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.retry.support.RetryTemplate;
 import reactor.core.publisher.Flux;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static site.hansi.framework.ai.core.model.xinghuo.XingHuoChatOptions.MODEL_DEFAULT;
 
@@ -72,12 +74,12 @@ public class XingHuoChatModel implements ChatModel {
             OpenAiApi.ChatCompletion chatCompletion = completionEntity.getBody();
             if (chatCompletion == null) {
                 log.warn("No chat completion returned for prompt: {}", prompt);
-                return new ChatResponse(List.of());
+                return new ChatResponse(Arrays.asList());
             }
             List<OpenAiApi.ChatCompletion.Choice> choices = chatCompletion.choices();
             if (choices == null) {
                 log.warn("No choices returned for prompt: {}", prompt);
-                return new ChatResponse(List.of());
+                return new ChatResponse(Arrays.asList());
             }
 
             // 2. 转换 ChatResponse 返回
@@ -87,7 +89,7 @@ public class XingHuoChatModel implements ChatModel {
                     generation.withGenerationMetadata(ChatGenerationMetadata.from(choice.finishReason().name(), null));
                 }
                 return generation;
-            }).toList();
+            }).collect(Collectors.toList());
             return new ChatResponse(generations,
                     OpenAiChatResponseMetadata.from(completionEntity.getBody()));
         });
@@ -117,14 +119,17 @@ public class XingHuoChatModel implements ChatModel {
                 // 2. 转换 ChatResponse 返回
                 List<Generation> generations = chatCompletion.choices().stream().map(choice -> {
                     String finish = (choice.finishReason() != null ? choice.finishReason().name() : "");
-                    Generation generation = new Generation(choice.delta().content(),
-                            Map.of("id", id, "role", choice.delta().role().name(), "finishReason", finish));
+                    Map<String, Object> map = new HashMap<String, Object>();
+                    map.put("id", id);
+                    map.put("role", choice.delta().role().name());
+                    map.put("finishReason", finish);
+                    Generation generation = new Generation(choice.delta().content(), map);
                     if (choice.finishReason() != null) {
                         generation = generation.withGenerationMetadata(
                                 ChatGenerationMetadata.from(choice.finishReason().name(), null));
                     }
                     return generation;
-                }).toList();
+                }).collect(Collectors.toList());
                 return new ChatResponse(generations);
             });
         });
@@ -133,12 +138,13 @@ public class XingHuoChatModel implements ChatModel {
     OpenAiApi.ChatCompletionRequest createRequest(Prompt prompt, boolean stream) {
         // 1. 构建 ChatCompletionMessage 对象
         List<OpenAiApi.ChatCompletionMessage> chatCompletionMessages = prompt.getInstructions().stream().map(m ->
-                new OpenAiApi.ChatCompletionMessage(m.getContent(), OpenAiApi.ChatCompletionMessage.Role.valueOf(m.getMessageType().name()))).toList();
+                new OpenAiApi.ChatCompletionMessage(m.getContent(), OpenAiApi.ChatCompletionMessage.Role.valueOf(m.getMessageType().name()))).collect(Collectors.toList());
         OpenAiApi.ChatCompletionRequest request = new OpenAiApi.ChatCompletionRequest(chatCompletionMessages, stream);
 
         // 2.1 补充 prompt 内置的 options
         if (prompt.getOptions() != null) {
-            if (prompt.getOptions() instanceof ChatOptions runtimeOptions) {
+            if (prompt.getOptions() instanceof ChatOptions) {
+            	ChatOptions runtimeOptions = (ChatOptions)prompt.getOptions();
                 OpenAiChatOptions updatedRuntimeOptions = ModelOptionsUtils.copyToTarget(runtimeOptions,
                         ChatOptions.class, OpenAiChatOptions.class);
                 request = ModelOptionsUtils.merge(updatedRuntimeOptions, request, OpenAiApi.ChatCompletionRequest.class);

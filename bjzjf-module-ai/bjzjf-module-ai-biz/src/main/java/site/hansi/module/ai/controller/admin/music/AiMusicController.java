@@ -1,24 +1,37 @@
 package site.hansi.module.ai.controller.admin.music;
 
-import cn.hutool.core.util.ObjUtil;
-import site.hansi.framework.common.pojo.CommonResult;
-import site.hansi.framework.common.pojo.PageResult;
-import site.hansi.framework.common.util.object.BeanUtils;
-import site.hansi.module.ai.controller.admin.music.vo.*;
-import site.hansi.module.ai.dal.dataobject.music.AiMusicDO;
-import site.hansi.module.ai.service.music.AiMusicService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.annotation.Resource;
-import jakarta.validation.Valid;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import static site.hansi.framework.common.pojo.CommonResult.success;
+import static site.hansi.framework.security.core.util.SecurityFrameworkUtils.getLoginUserId;
 
 import java.util.List;
 
-import static site.hansi.framework.common.pojo.CommonResult.success;
-import static site.hansi.framework.security.core.util.SecurityFrameworkUtils.getLoginUserId;
+import javax.annotation.Resource;
+import javax.validation.Valid;
+
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import cn.hutool.core.util.ObjUtil;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import site.hansi.framework.common.pojo.CommonResult;
+import site.hansi.framework.common.pojo.PageResult;
+import site.hansi.framework.common.util.object.BeanUtils;
+import site.hansi.module.ai.controller.admin.music.vo.AiMusicPageReqVO;
+import site.hansi.module.ai.controller.admin.music.vo.AiMusicRespVO;
+import site.hansi.module.ai.controller.admin.music.vo.AiMusicUpdateMyReqVO;
+import site.hansi.module.ai.controller.admin.music.vo.AiMusicUpdateReqVO;
+import site.hansi.module.ai.controller.admin.music.vo.AiSunoGenerateReqVO;
+import site.hansi.module.ai.dal.dataobject.music.AiMusicDO;
+import site.hansi.module.ai.service.music.AiMusicService;
 
 @Tag(name = "管理后台 - AI 音乐")
 @RestController

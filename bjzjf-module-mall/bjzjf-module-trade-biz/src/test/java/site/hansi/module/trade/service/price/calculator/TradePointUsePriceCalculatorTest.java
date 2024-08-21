@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
-// TODO 芋艿：晚点 review
+// TODO 智匠坊：晚点 review
 /**
  * {@link TradePointUsePriceCalculator } 的单元测试类
  *

@@ -48,6 +48,6 @@ public class ProductBrandDO extends BaseDO {
      */
     private Integer status;
 
-    // TODO 芋艿：firstLetter 首字母
+    // TODO 智匠坊：firstLetter 首字母
 
 }

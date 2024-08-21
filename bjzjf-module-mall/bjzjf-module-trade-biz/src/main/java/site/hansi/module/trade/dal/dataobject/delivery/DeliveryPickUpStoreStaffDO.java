@@ -7,8 +7,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
-// TODO @芋艿：后续再详细 review 一轮
-// TODO @芋艿：可能改成 DeliveryPickUpStoreUserDO
+// TODO @智匠坊：后续再详细 review 一轮
+// TODO @智匠坊：可能改成 DeliveryPickUpStoreUserDO
 /**
  * 自提门店店员 DO
  *

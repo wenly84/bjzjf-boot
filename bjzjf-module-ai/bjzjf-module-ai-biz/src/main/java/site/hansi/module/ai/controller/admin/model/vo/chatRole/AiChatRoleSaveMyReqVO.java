@@ -1,9 +1,11 @@
 package site.hansi.module.ai.controller.admin.model.vo.chatRole;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotEmpty;
-import lombok.Data;
+import javax.validation.constraints.NotEmpty;
+
 import org.hibernate.validator.constraints.URL;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 
 @Schema(description = "管理后台 - AI 聊天角色新增/修改【我的】 Request VO")
 @Data

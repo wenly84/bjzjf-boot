@@ -36,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.*;
 *
 * @author 北京智匠坊
 */
-@Disabled // TODO 芋艿：后续 fix 补充的单测
+@Disabled // TODO 智匠坊：后续 fix 补充的单测
 @Import(RewardActivityServiceImpl.class)
 public class RewardActivityServiceImplTest extends BaseDbUnitTest {
 
@@ -145,7 +145,7 @@ public class RewardActivityServiceImplTest extends BaseDbUnitTest {
     public void testGetRewardActivityPage() {
        // mock 数据
        RewardActivityDO dbRewardActivity = randomPojo(RewardActivityDO.class, o -> { // 等会查询到
-           o.setName("芋艿");
+           o.setName("智匠坊");
            o.setStatus(PromotionActivityStatusEnum.CLOSE.getStatus());
        });
        rewardActivityMapper.insert(dbRewardActivity);
@@ -155,7 +155,7 @@ public class RewardActivityServiceImplTest extends BaseDbUnitTest {
        rewardActivityMapper.insert(cloneIgnoreId(dbRewardActivity, o -> o.setStatus(PromotionActivityStatusEnum.RUN.getStatus())));
        // 准备参数
        RewardActivityPageReqVO reqVO = new RewardActivityPageReqVO();
-       reqVO.setName("芋艿");
+       reqVO.setName("智匠坊");
        reqVO.setStatus(PromotionActivityStatusEnum.CLOSE.getStatus());
 
        // 调用

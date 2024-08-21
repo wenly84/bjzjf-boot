@@ -1,17 +1,18 @@
 package site.hansi.module.ai.service.model;
 
-import site.hansi.framework.common.pojo.PageResult;
-import site.hansi.module.ai.controller.admin.model.vo.chatRole.AiChatRolePageReqVO;
-import site.hansi.module.ai.controller.admin.model.vo.chatRole.AiChatRoleSaveMyReqVO;
-import site.hansi.module.ai.controller.admin.model.vo.chatRole.AiChatRoleSaveReqVO;
-import site.hansi.module.ai.dal.dataobject.model.AiChatRoleDO;
-import jakarta.validation.Valid;
+import static site.hansi.framework.common.util.collection.CollectionUtils.convertMap;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import static site.hansi.framework.common.util.collection.CollectionUtils.convertMap;
+import javax.validation.Valid;
+
+import site.hansi.framework.common.pojo.PageResult;
+import site.hansi.module.ai.controller.admin.model.vo.chatRole.AiChatRolePageReqVO;
+import site.hansi.module.ai.controller.admin.model.vo.chatRole.AiChatRoleSaveMyReqVO;
+import site.hansi.module.ai.controller.admin.model.vo.chatRole.AiChatRoleSaveReqVO;
+import site.hansi.module.ai.dal.dataobject.model.AiChatRoleDO;
 
 /**
  * AI 聊天角色 Service 接口

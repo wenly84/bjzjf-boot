@@ -1,7 +1,8 @@
 package site.hansi.module.ai.controller.admin.music.vo;
 
+import javax.validation.constraints.NotNull;
+
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Schema(description = "管理后台 - AI 修改我的音乐 Request VO")
