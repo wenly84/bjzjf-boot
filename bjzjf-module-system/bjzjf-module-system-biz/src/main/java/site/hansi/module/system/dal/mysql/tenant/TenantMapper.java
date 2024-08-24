@@ -24,7 +24,7 @@ public interface TenantMapper extends BaseMapperX<TenantDO> {
                 .likeIfPresent(TenantDO::getContactMobile, reqVO.getContactMobile())
                 .eqIfPresent(TenantDO::getStatus, reqVO.getStatus())
                 .betweenIfPresent(TenantDO::getCreateTime, reqVO.getCreateTime())
-                .orderByDesc(TenantDO::getId));
+                .orderByAsc(TenantDO::getId));
     }
 
     default TenantDO selectByName(String name) {
