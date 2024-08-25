@@ -21,7 +21,7 @@
         <module>bjzjf-module-mall</module>
         <module>bjzjf-module-crm</module>
         <module>bjzjf-module-erp</module>
-  		<module>bjzjf-module-ai</module>
+        <!--<module>bjzjf-module-ai</module>-->
     </modules>
 
     <name>${project.artifactId}</name>

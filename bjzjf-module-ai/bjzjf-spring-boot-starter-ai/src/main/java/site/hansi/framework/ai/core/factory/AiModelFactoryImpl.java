@@ -46,7 +46,7 @@ import org.springframework.ai.zhipuai.api.ZhiPuAiApi;
 import org.springframework.ai.zhipuai.api.ZhiPuAiImageApi;
 import org.springframework.retry.support.RetryTemplate;
 import org.springframework.web.client.ResponseErrorHandler;
-import org.springframework.web.client.RestClient;
+//import org.springframework.web.client.RestClient;
 
 import java.util.List;
 
